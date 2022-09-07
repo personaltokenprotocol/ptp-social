@@ -2,7 +2,7 @@ import type { ActionFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { Outlet, useSubmit } from "@remix-run/react";
 
-import { loginWithMetamask } from "~/blockchain/metamask";
+import { signWithMetamask } from "~/blockchain/metamask";
 
 import { authenticate } from "~/login";
 
@@ -39,8 +39,8 @@ export const action: ActionFunction = async ({ request }) => {
 export default function Login() {
   const submit = useSubmit();
 
-  async function handleLogin() {
-    const [address, signature, nonce] = await loginWithMetamask();
+  async function handleSign() {
+    const [address, signature, nonce] = await signWithMetamask();
 
     const formData = new FormData();
 
@@ -63,7 +63,7 @@ export default function Login() {
     <div className="p-16 flex gap-4">
       <button
         className="bg-third text-white font-bold rounded p-2"
-        onClick={handleLogin}
+        onClick={handleSign}
       >
         Sign with Metamask
       </button>
