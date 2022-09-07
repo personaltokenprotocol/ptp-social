@@ -2,16 +2,44 @@ import React from "react";
 
 import { MdRadioButtonChecked } from "@react-icons/all-files/md/MdRadioButtonChecked";
 
+declare global {
+  interface Window {
+    ethereum: any;
+  }
+}
+
 export default function ChainButton() {
+  const login = async () => {
+    console.log("login");
+
+    try {
+      console.log("metamask", window.ethereum);
+      const [wallet] = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+
+      if (!wallet || wallet === "") {
+        throw new Error("Metamask: not wallet address found");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <button className="bg-bg text-black py-2 px-4 rounded">
-      <div className="flex">
+    <button onClick={login}>
+      <div className="flex bg-bg rounded">
         <img
           src="/polygon-logo.svg"
           alt="Polygon logo"
-          style={{ transform: "scale(0.5)" }}
+          style={{
+            transform: "scale(0.03)",
+            width: "100%",
+          }}
         />
-        <p>Polygon</p>
+
+        <p className="font-bold">Polygon</p>
+
         <Question />
       </div>
     </button>
@@ -21,9 +49,9 @@ export default function ChainButton() {
 class Question extends React.Component {
   render() {
     return (
-      <p>
+      <div className="px-2">
         <MdRadioButtonChecked style={{ color: true ? "green" : "red" }} />
-      </p>
+      </div>
     );
   }
 }
