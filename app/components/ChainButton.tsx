@@ -10,10 +10,7 @@ declare global {
 
 export default function ChainButton() {
   const login = async () => {
-    console.log("login");
-
     try {
-      console.log("metamask", window.ethereum);
       const [wallet] = await window.ethereum.request({
         method: "eth_requestAccounts",
       });

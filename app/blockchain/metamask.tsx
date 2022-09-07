@@ -14,7 +14,7 @@ export async function loginWithMetamask() {
 
     const signer = provider.getSigner();
 
-    const address = signer.getAddress();
+    const address = await signer.getAddress();
 
     const nonce = Math.floor(Math.random() * 1000000);
 
