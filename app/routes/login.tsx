@@ -1,9 +1,11 @@
 import type { ActionFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { useSubmit } from "@remix-run/react";
+import { Outlet, useSubmit } from "@remix-run/react";
 
 import { loginWithMetamask } from "~/blockchain/metamask";
+
 import { authenticate } from "~/login";
+
 import { db } from "~/utils/db.server";
 
 export const action: ActionFunction = async ({ request }) => {
@@ -50,7 +52,7 @@ export default function Login() {
     formData.append("nonce", nonce);
 
     submit(formData, {
-      action: "/login/?index",
+      action: "/login",
       method: "post",
       encType: "application/x-www-form-urlencoded",
       replace: true,
@@ -58,10 +60,15 @@ export default function Login() {
   }
 
   return (
-    <div className="p-16">
-      <button className="bg-bg rounded p-2" onClick={handleLogin}>
-        Connect Wallet
+    <div className="p-16 flex gap-4">
+      <button
+        className="bg-third text-white font-bold rounded p-2"
+        onClick={handleLogin}
+      >
+        Sign with Metamask
       </button>
+
+      <Outlet />
     </div>
   );
 }
