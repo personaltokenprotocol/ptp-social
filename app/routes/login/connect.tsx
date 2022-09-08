@@ -2,7 +2,6 @@ import { loginWithMetamask } from "~/blockchain/metamask";
 
 export default function Sign() {
   const handleLogin = async () => {
-    // @ts-ignore
     await loginWithMetamask();
   };
 

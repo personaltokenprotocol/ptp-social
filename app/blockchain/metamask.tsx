@@ -6,6 +6,18 @@ declare global {
   }
 }
 
+export async function loginWithMetamask() {
+  console.log("[blockchain][metamask] loginWithMetamask");
+
+  const [address] = await window.ethereum.request({
+    method: "eth_requestAccounts",
+  });
+
+  console.log("[blockchain][metamask] address", address);
+
+  return address;
+}
+
 export async function signWithMetamask() {
   if (window.ethereum) {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -24,14 +36,4 @@ export async function signWithMetamask() {
   }
 
   throw new Error("Metamask: not wallet address found");
-}
-
-export async function loginWithMetamask() {
-  console.log("[blockchain][metamask] loginWithMetamask");
-
-  const [wallet] = await window.ethereum.request({
-    method: "eth_requestAccounts",
-  });
-
-  return wallet;
 }
