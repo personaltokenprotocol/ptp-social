@@ -1,7 +1,4 @@
-import type { ActionFunction } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
-import { Link, useSubmit } from "@remix-run/react";
-import { loginWithMetamask } from "~/blockchain/metamask";
+import { Link } from "@remix-run/react";
 
 type NavbarLoggedProps = {
   address: string;
@@ -12,9 +9,7 @@ export default function NavbarLogged({ address }: NavbarLoggedProps) {
     <nav className="bg-bg border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <Link to="/login">
-          <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white hidden md:block">
-            Personal token
-          </span>
+          <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white hidden md:block"></span>
         </Link>
         <div className="flex md:order-2">
           <button

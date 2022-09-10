@@ -6,14 +6,27 @@ declare global {
   }
 }
 
+function checkMetamaskAvailability(): boolean {
+  console.log("[blockchain][metamask][checkMetamaskAvailability]");
+  const { ethereum } = window;
+
+  if (!ethereum) {
+    throw new Error("Metamask is not available");
+  }
+
+  return false;
+}
+
 export async function loginWithMetamask() {
-  console.log("[blockchain][metamask] loginWithMetamask");
+  console.log("[blockchain][metamask][loginWithMetamask]");
+
+  checkMetamaskAvailability();
 
   const [address] = await window.ethereum.request({
     method: "eth_requestAccounts",
   });
 
-  console.log("[blockchain][metamask] address", address);
+  console.log("[blockchain][metamask]loginWithMetamask] address", address);
 
   return address;
 }
