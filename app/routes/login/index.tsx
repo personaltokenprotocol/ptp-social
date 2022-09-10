@@ -7,20 +7,19 @@ import { loginWithMetamask } from "~/blockchain/metamask";
 import { db } from "~/utils/db.server";
 
 export const action: ActionFunction = async ({ request }) => {
-  console.log("its working?");
   const form = await request.formData();
 
   const address = form.get("address");
 
   if (!address || typeof address !== "string") return null;
 
-  const user = await db.user.create({
-    data: {
-      address,
-    },
-  });
+  // const user = await db.user.create({
+  //   data: {
+  //     address,
+  //   },
+  // });
 
-  return redirect(`/${user.address}`);
+  return redirect(`/dashboard`);
 };
 
 export default function Navbar() {
@@ -34,7 +33,7 @@ export default function Navbar() {
     formData.append("address", address);
 
     submit(formData, {
-      action: "/index",
+      action: "/login/?index",
       method: "post",
       encType: "application/x-www-form-urlencoded",
       replace: true,

@@ -610,16 +610,8 @@ video {
   display: none;
 }
 
-.h-screen {
-  height: 100vh;
-}
-
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.flex-col {
-  flex-direction: column;
 }
 
 .flex-wrap {
@@ -634,16 +626,8 @@ video {
   align-items: center;
 }
 
-.justify-center {
-  justify-content: center;
-}
-
 .justify-between {
   justify-content: space-between;
-}
-
-.gap-4 {
-  gap: 1rem;
 }
 
 .self-center {
@@ -672,11 +656,6 @@ video {
   background-color: rgb(242 244 248 / var(--tw-bg-opacity));
 }
 
-.bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
 .bg-first {
   --tw-bg-opacity: 1;
   background-color: rgb(255 190 11 / var(--tw-bg-opacity));
@@ -687,21 +666,13 @@ video {
   background-color: rgb(255 0 110 / var(--tw-bg-opacity));
 }
 
-.bg-second {
+.bg-white {
   --tw-bg-opacity: 1;
-  background-color: rgb(58 134 255 / var(--tw-bg-opacity));
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .p-10 {
   padding: 2.5rem;
-}
-
-.p-16 {
-  padding: 4rem;
-}
-
-.p-2 {
-  padding: 0.5rem;
 }
 
 .px-2 {
@@ -747,11 +718,6 @@ video {
   line-height: 2rem;
 }
 
-.text-6xl {
-  font-size: 3.75rem;
-  line-height: 1;
-}
-
 .font-bold {
   font-weight: 700;
 }
@@ -764,19 +730,28 @@ video {
   font-weight: 500;
 }
 
-.text-black {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
 .hover\:bg-second:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(58 134 255 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-first:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 190 11 / var(--tw-bg-opacity));
+}
+
+.disabled\:opacity-50:disabled {
+  opacity: 0.5;
 }
 
 @media (prefers-color-scheme: dark) {

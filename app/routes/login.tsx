@@ -37,38 +37,33 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Login() {
-  const submit = useSubmit();
-
-  async function handleSign() {
-    const [address, signature, nonce] = await signWithMetamask();
-
-    const formData = new FormData();
-
-    // @ts-ignore
-    formData.append("address", address);
-    // @ts-ignore
-    formData.append("signature", signature);
-    // @ts-ignore
-    formData.append("nonce", nonce);
-
-    submit(formData, {
-      action: "/login",
-      method: "post",
-      encType: "application/x-www-form-urlencoded",
-      replace: true,
-    });
-  }
-
   return (
-    <div className="p-16 flex gap-4">
-      <button
-        className="bg-third text-white font-bold rounded p-2"
-        onClick={handleSign}
-      >
-        Sign with Metamask
-      </button>
-
+    <div>
       <Outlet />
+
+      <div className="pt-10 grid place-items-center">
+        <h1 className="text-2xl font-semibold ">Connect wallet</h1>
+        <div className="mt-10">
+          <button
+            type="button"
+            className="text-white bg-first font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 disabled:opacity-50"
+            disabled
+          >
+            Connect wallet
+          </button>
+
+          <div>
+            <ul>
+              <li>
+                View only permission !!. We will never do anything withot your
+                approval
+              </li>
+              <li>Trusted by 0 persons</li>
+              <li>Lens protocol</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
