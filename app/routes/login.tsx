@@ -3,6 +3,7 @@ import { redirect } from "@remix-run/node";
 import { Outlet, useSubmit } from "@remix-run/react";
 
 import { signWithMetamask } from "~/blockchain/metamask";
+import Footer from "~/components/Footer";
 
 import { authenticate } from "~/login";
 
@@ -64,6 +65,8 @@ export default function Login() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }
