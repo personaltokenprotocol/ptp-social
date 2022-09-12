@@ -1,44 +1,43 @@
 import type { ActionFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { Outlet } from "@remix-run/react";
+import { Outlet, useSubmit } from "@remix-run/react";
 
 import Footer from "~/components/Footer";
 
-import { authenticate } from "~/login";
-
-import { db } from "~/utils/db.server";
+import { loginWithMetamask } from "~/blockchain/metamask";
 
 import { MdVisibility, MdFavorite } from "react-icons/md";
+
+const COLOR = "#06D6A0";
 
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
 
   const address = form.get("address");
-  const signature = form.get("signature");
-  const nonce = form.get("nonce");
 
   if (!address || typeof address !== "string") return null;
-  if (!signature || typeof signature !== "string") return null;
-  if (!nonce) return null;
 
-  const isAuthenticated = await authenticate(
-    address,
-    signature,
-    nonce as unknown as number
-  );
-
-  if (!isAuthenticated) return null;
-
-  const user = await db.user.create({
-    data: {
-      address,
-    },
-  });
-
-  return redirect(`login/${user.address}`);
+  return redirect(`/dashboard`);
 };
 
 export default function Login() {
+  const submit = useSubmit();
+
+  const handleLogin = async () => {
+    const address = await loginWithMetamask();
+
+    const formData = new FormData();
+
+    formData.append("address", address);
+
+    submit(formData, {
+      action: "/login/?index",
+      method: "post",
+      encType: "application/x-www-form-urlencoded",
+      replace: true,
+    });
+  };
+
   return (
     <div>
       <Outlet />
@@ -46,11 +45,11 @@ export default function Login() {
       <div className="pt-10 grid place-items-center">
         <h1 className="text-2xl font-semibold">Connect wallet</h1>
 
-        <div className="mt-10 rounded-xl shadow-ptp p-5 grid place-items-center w-1/3">
+        <div className="mt-10 rounded-xl shadow-ptp p-5 grid place-items-center w-5/6 sm:w-1/3">
           <button
             type="button"
             className="text-white bg-first font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 disabled:opacity-50"
-            disabled
+            onClick={handleLogin}
           >
             Connect wallet
           </button>
@@ -58,22 +57,32 @@ export default function Login() {
           <div className="pt-5">
             <ul>
               <li>
-                <div className="flex p-3">
-                  <MdVisibility size="40px" />
-                  <p className="px-6">
-                    View only permission. We will never do anything withot your
+                <div className="flex p-3 ">
+                  <MdVisibility color={COLOR} className="w-8 h-8 m-auto" />
+                  <p className="px-6 w-full">
+                    View only permission. We will never do anything without your
                     approval
                   </p>
                 </div>
               </li>
 
               <li>
-                <div className="flex p-3">
-                  <MdFavorite size="23px" />
-                  <p className="px-6">Trusted by 2 users</p>
+                <div className="flex p-3 ">
+                  <MdFavorite color={COLOR} className="w-8 h-8 m-auto" />
+                  <p className="px-6 w-full">Trusted by 2 users</p>
                 </div>
               </li>
-              <li>Lens protocol</li>
+
+              <li>
+                <div className="flex p-3">
+                  <img
+                    src="/lens-logo.jpeg"
+                    alt="lens"
+                    className="rounded-full w-8 -mx-1"
+                  />
+                  <p className="px-7">We using Lens protocol</p>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
