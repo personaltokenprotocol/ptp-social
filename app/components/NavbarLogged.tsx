@@ -22,7 +22,7 @@ export default function NavbarLogged({ address }: NavbarLoggedProps) {
           <Link to="/login">
             <button
               type="button"
-              className="text-white bg-third hover:bg-first font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3"
+              className="text-white bg-third hover:bg-first font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 hidden sm:block"
             >
               Logout
             </button>

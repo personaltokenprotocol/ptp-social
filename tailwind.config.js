@@ -15,6 +15,9 @@ module.exports = {
       fontSize: {
         tiny: "0.70rem",
       },
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+      },
     },
   },
   variants: {},

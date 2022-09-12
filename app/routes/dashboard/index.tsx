@@ -27,9 +27,9 @@ export const loader: LoaderFunction = async () => {
 export default function Dashboard() {
   const data = useLoaderData();
 
-  data.items.map((item: any) => {
-    console.log("[Dashboard]", item.createdAt);
-  });
+  // data.items.map((item: any) => {
+  //   console.log("[Dashboard]", item.createdAt);
+  // });
 
   return (
     <div>
@@ -39,7 +39,7 @@ export default function Dashboard() {
         What's going on ?
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 w-2/3 m-auto">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 sm:w-2/3 content-center m-auto">
         {data.items.map((item: any) => (
           <Post
             key={item.id}
