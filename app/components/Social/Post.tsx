@@ -1,3 +1,4 @@
+import { calculateHoursBetweenNowAndDate } from "~/utils/hour";
 import { transformToIpfsUrl } from "~/utils/ipfs";
 import { resume } from "~/utils/text";
 
@@ -27,28 +28,34 @@ export default function Post({
 }: PostProps) {
   return (
     <div className="rounded-lg p-5 m-2 w-200 border-black border-2">
-      <div className="flex items-start">
-        {profileImage ? (
-          <img
-            className="w-10 h-10 rounded-full"
-            src={transformToIpfsUrl(profileImage)}
-            alt="avatar"
-          />
-        ) : (
-          <div className="w-10 h-10 bg-first rounded-full ">
-            <p className="text-center mt-1.5 text-white">{name.charAt(0)}</p>{" "}
-          </div>
-        )}
-
-        <div className="content-start">
-          {name ? (
-            <p className="text-black text-xs font-bold px-3">{name}</p>
+      <div className="flex justify-between">
+        <div className="flex">
+          {profileImage ? (
+            <img
+              className="w-10 h-10 rounded-full"
+              src={transformToIpfsUrl(profileImage)}
+              alt="avatar"
+            />
           ) : (
-            <p className="text-black text-xs font-bold px-3">{handle}</p>
+            <div className="w-10 h-10 bg-first rounded-full ">
+              <p className="text-center mt-1.5 text-white">{name.charAt(0)}</p>{" "}
+            </div>
           )}
 
-          <p className="text-gray-500 text-xs px-3">@{handle}</p>
+          <div className="content-start">
+            {name ? (
+              <p className="text-black text-xs font-bold px-3">{name}</p>
+            ) : (
+              <p className="text-black text-xs font-bold px-3">{handle}</p>
+            )}
+
+            <p className="text-gray-500 text-xs px-3">@{handle}</p>
+          </div>
         </div>
+
+        <p className="text-gray-500 text-xs ">
+          {calculateHoursBetweenNowAndDate(createdAt)} h
+        </p>
       </div>
 
       <div className="pt-5">
@@ -81,10 +88,6 @@ export default function Post({
         </div>
 
         <div></div>
-      </div>
-
-      <div>
-        <p className="text-gray-500 text-xs pt-5">{createdAt}</p>
       </div>
     </div>
   );

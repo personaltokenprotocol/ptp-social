@@ -39,7 +39,7 @@ export default function Dashboard() {
         What's going on ?
       </h1>
 
-      <div className="grid grid-cols-2 w-2/3 m-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 w-2/3 m-auto">
         {data.items.map((item: any) => (
           <Post
             key={item.id}
