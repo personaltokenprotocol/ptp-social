@@ -28,7 +28,7 @@ export default function Dashboard() {
   const data = useLoaderData();
 
   data.items.map((item: any) => {
-    console.log("[Dashboard]", item.metadata);
+    console.log("[Dashboard]", item.createdAt);
   });
 
   return (
@@ -49,6 +49,10 @@ export default function Dashboard() {
             profileImage={item.profile.picture.original?.url}
             content={item.metadata.content}
             image={item.metadata.media[0]?.original?.url}
+            collection={item.stats.totalAmountOfCollects}
+            comments={item.stats.totalAmountOfComments}
+            mirrors={item.stats.totalAmountOfMirrors}
+            createdAt={item.createdAt}
           />
         ))}
       </div>

@@ -8,15 +8,22 @@ type PostProps = {
   profileImage?: string;
   content?: string;
   image?: string;
+  collection: number;
+  comments: number;
+  mirrors: number;
+  createdAt: string;
 };
 
 export default function Post({
-  id,
   name,
   handle,
   profileImage,
   content,
   image,
+  collection,
+  comments,
+  mirrors,
+  createdAt,
 }: PostProps) {
   return (
     <div className="rounded-lg p-5 m-2 w-200 border-black border-2">
@@ -55,6 +62,30 @@ export default function Post({
           <img src={transformToIpfsUrl(image)} alt="post" />
         </div>
       )}
+
+      <div className="grid grid-cols-1 divide-y pt-5">
+        <div></div>
+
+        <div className="flex ">
+          <div className="text-gray-600 text-tiny m-auto ">
+            <span className="font-bold">{collection} </span> Collect
+          </div>
+          &nbsp; &nbsp;
+          <div className="text-gray-600 text-tiny m-auto">
+            <span className="font-bold">{comments} </span> Comments
+          </div>
+          &nbsp; &nbsp;
+          <div className="text-gray-600 text-tiny m-auto">
+            <span className="font-bold">{mirrors} </span>Mirrors
+          </div>
+        </div>
+
+        <div></div>
+      </div>
+
+      <div>
+        <p className="text-gray-500 text-xs pt-5">{createdAt}</p>
+      </div>
     </div>
   );
 }
