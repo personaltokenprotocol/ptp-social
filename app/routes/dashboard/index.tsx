@@ -6,7 +6,8 @@ import NavbarLogged from "~/components/NavbarLogged";
 import { db } from "~/utils/db.server";
 
 import { GraphQLClient } from "graphql-request";
-import { ExplorePublications, GetPing } from "~/blockchain/lens-api";
+import { ExplorePublications } from "~/blockchain/lens-api";
+import Post from "~/components/Social/Post";
 
 export const loader: LoaderFunction = async () => {
   console.log("[BFF][dashboard]");
@@ -25,18 +26,30 @@ export const loader: LoaderFunction = async () => {
 export default function Dashboard() {
   const data = useLoaderData();
 
-  console.log(data);
+  // console.log(data.items);
+
+  data.items.map((item: any) => {
+    console.log(item.profile.picture.original?.url);
+  });
+
   return (
     <div>
       <NavbarLogged address={data.address} />
 
-      <div className="p-10">
-        <h1>Publicaciones</h1>
-        <ul>
+      <h1 className="px-10 pt-10">Trending ...</h1>
+
+      <div className="grid grid-cols-4 gap-4">
+        <div className="grid ">
           {data.items.map((item: any) => (
-            <li key={item.id}>{item.profile.name}</li>
+            <Post
+              key={item.id}
+              id={item.id}
+              name={item.profile.name}
+              handle={item.profile.handle}
+              profileImage={item.profile.picture.original?.url}
+            />
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   );
