@@ -5,8 +5,8 @@ import NavbarLogged from "~/components/NavbarLogged";
 
 import { db } from "~/utils/db.server";
 
-import { GraphQLClient, gql } from "graphql-request";
-import { GetPing } from "~/blockchain/lens-api";
+import { GraphQLClient } from "graphql-request";
+import { ExplorePublications, GetPing } from "~/blockchain/lens-api";
 
 export const loader: LoaderFunction = async () => {
   console.log("[BFF][dashboard]");
@@ -15,20 +15,29 @@ export const loader: LoaderFunction = async () => {
 
   const lens = new GraphQLClient("https://api.lens.dev/playground");
 
-  const response = await lens.request(GetPing);
+  const response = await lens.request(ExplorePublications);
 
-  console.log(response);
+  const items = response.explorePublications;
 
-  return user[0];
+  return { ...user[0], ...items };
 };
 
 export default function Dashboard() {
-  const user = useLoaderData();
+  const data = useLoaderData();
 
+  console.log(data);
   return (
     <div>
-      <NavbarLogged address={user.address} />
-      <div className="p-10"> Estas autenticado !!</div>
+      <NavbarLogged address={data.address} />
+
+      <div className="p-10">
+        <h1>Publicaciones</h1>
+        <ul>
+          {data.items.map((item: any) => (
+            <li key={item.id}>{item.profile.name}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
