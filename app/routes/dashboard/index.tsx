@@ -28,7 +28,7 @@ export default function Dashboard() {
   const data = useLoaderData();
 
   data.items.map((item: any) => {
-    console.log(item.metadata.media);
+    console.log("[Dashboard]", item.metadata);
   });
 
   return (
@@ -39,7 +39,7 @@ export default function Dashboard() {
         What's going on ?
       </h1>
 
-      <div className="grid grid-cols-2 gap-2 w-2/3 m-auto">
+      <div className="grid grid-cols-2 w-2/3 m-auto">
         {data.items.map((item: any) => (
           <Post
             key={item.id}
@@ -47,7 +47,7 @@ export default function Dashboard() {
             name={item.profile.name}
             handle={item.profile.handle}
             profileImage={item.profile.picture.original?.url}
-            description={item.metadata.description}
+            content={item.metadata.content}
             image={item.metadata.media[0]?.original?.url}
           />
         ))}
