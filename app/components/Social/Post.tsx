@@ -67,11 +67,11 @@ export default function Post({
           </p>
         </div>
 
-        {/* {image && (
-        <div className="pt-3 ">
-          <img src={transformToIpfsUrl(image)} alt="post" />
-        </div>
-      )} */}
+        {image && (
+          <div className="pt-3 ">
+            <img src={transformToIpfsUrl(image)} alt="post" />
+          </div>
+        )}
       </div>
 
       <div className="divide-y bottom-0 pt-5">
