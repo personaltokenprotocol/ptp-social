@@ -7,6 +7,7 @@ import { db } from "~/utils/db.server";
 
 import { GraphQLClient } from "graphql-request";
 import { ExplorePublications } from "~/blockchain/lens-api";
+
 import Post from "~/components/Social/Post";
 
 export const loader: LoaderFunction = async () => {
@@ -26,30 +27,30 @@ export const loader: LoaderFunction = async () => {
 export default function Dashboard() {
   const data = useLoaderData();
 
-  // console.log(data.items);
-
   data.items.map((item: any) => {
-    console.log(item.profile.picture.original?.url);
+    console.log(item.metadata.media);
   });
 
   return (
     <div>
       <NavbarLogged address={data.address} />
 
-      <h1 className="px-10 pt-10">Trending ...</h1>
+      <h1 className="px-10 pt-5 font-bold text-first text-2xl text-center">
+        What's going on ?
+      </h1>
 
-      <div className="grid grid-cols-4 gap-4">
-        <div className="grid ">
-          {data.items.map((item: any) => (
-            <Post
-              key={item.id}
-              id={item.id}
-              name={item.profile.name}
-              handle={item.profile.handle}
-              profileImage={item.profile.picture.original?.url}
-            />
-          ))}
-        </div>
+      <div className="grid grid-cols-2 gap-2 w-2/3 m-auto">
+        {data.items.map((item: any) => (
+          <Post
+            key={item.id}
+            id={item.id}
+            name={item.profile.name}
+            handle={item.profile.handle}
+            profileImage={item.profile.picture.original?.url}
+            description={item.metadata.description}
+            image={item.metadata.media[0]?.original?.url}
+          />
+        ))}
       </div>
     </div>
   );

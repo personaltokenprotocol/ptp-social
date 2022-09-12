@@ -617,6 +617,10 @@ video {
   margin: 0.75rem;
 }
 
+.m-2 {
+  margin: 0.5rem;
+}
+
 .my-6 {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
@@ -739,6 +743,10 @@ video {
   height: 1rem;
 }
 
+.h-10 {
+  height: 2.5rem;
+}
+
 .w-full {
   width: 100%;
 }
@@ -783,6 +791,18 @@ video {
   width: 16.666667%;
 }
 
+.w-10 {
+  width: 2.5rem;
+}
+
+.w-1\/2 {
+  width: 50%;
+}
+
+.w-2\/3 {
+  width: 66.666667%;
+}
+
 .max-w-md {
   max-width: 28rem;
 }
@@ -813,6 +833,14 @@ video {
 
 .place-items-center {
   place-items: center;
+}
+
+.content-center {
+  align-content: center;
+}
+
+.content-start {
+  align-content: flex-start;
 }
 
 .items-start {
@@ -865,9 +893,28 @@ video {
   border-radius: 9999px;
 }
 
+.border-2 {
+  border-width: 2px;
+}
+
 .border-gray-200 {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
+}
+
+.border-second {
+  --tw-border-opacity: 1;
+  border-color: rgb(58 134 255 / var(--tw-border-opacity));
+}
+
+.border-first {
+  --tw-border-opacity: 1;
+  border-color: rgb(255 190 11 / var(--tw-border-opacity));
+}
+
+.border-black {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .bg-bg {
@@ -979,8 +1026,20 @@ video {
   padding-top: 1.25rem;
 }
 
+.pt-3 {
+  padding-top: 0.75rem;
+}
+
 .text-center {
   text-align: center;
+}
+
+.font-serif {
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+.font-sans {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .text-sm {
@@ -1006,6 +1065,11 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 
 .font-bold {
@@ -1043,6 +1107,11 @@ video {
 .text-gray-700 {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+
+.text-first {
+  --tw-text-opacity: 1;
+  color: rgb(255 190 11 / var(--tw-text-opacity));
 }
 
 .shadow-ptp {
