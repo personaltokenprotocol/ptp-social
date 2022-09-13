@@ -1,6 +1,6 @@
 import type { ActionFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { Link, Links, Meta, Scripts, useSubmit } from "@remix-run/react";
+import { Link, Scripts, useSubmit } from "@remix-run/react";
 
 import { loginWithMetamask } from "~/blockchain/metamask";
 
@@ -13,11 +13,17 @@ export const action: ActionFunction = async ({ request }) => {
 
   if (!address || typeof address !== "string") return null;
 
-  const user = await db.user.findUnique({
-    where: {
-      address,
-    },
-  });
+  let user;
+
+  try {
+    user = await db.user.findUnique({
+      where: {
+        address,
+      },
+    });
+  } catch (error) {
+    throw new Error("cannot find user, error: " + error);
+  }
 
   console.log(user?.address);
 
@@ -42,6 +48,8 @@ export default function Navbar() {
     const formData = new FormData();
 
     formData.append("address", address);
+
+    console.log("pasa por aca?");
 
     submit(formData, {
       action: "/login/?index",
@@ -84,11 +92,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
   console.error(error);
   return (
     <html>
-      <head>
-        <title>Oh no!</title>
-        <Meta />
-        <Links />
-      </head>
+      <head></head>
       <body>
         {error.message}
         <Scripts />

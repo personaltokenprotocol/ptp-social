@@ -1391,11 +1391,16 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), action2 = async (
   let address = (await request.formData()).get("address");
   if (!address || typeof address != "string")
     return null;
-  let user = await db.user.findUnique({
-    where: {
-      address
-    }
-  });
+  let user;
+  try {
+    user = await db.user.findUnique({
+      where: {
+        address
+      }
+    });
+  } catch (error) {
+    throw new Error("cannot find user, error: " + error);
+  }
   return console.log(user == null ? void 0 : user.address), user != null && user.address || (console.log("[BFF][login] User not found. Creating new user."), await db.user.create({
     data: {
       address
@@ -1416,12 +1421,12 @@ function Navbar() {
             children: "Personal token"
           }, void 0, !1, {
             fileName: "app/routes/login/index.tsx",
-            lineNumber: 58,
+            lineNumber: 66,
             columnNumber: 11
           }, this)
         }, void 0, !1, {
           fileName: "app/routes/login/index.tsx",
-          lineNumber: 57,
+          lineNumber: 65,
           columnNumber: 9
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
@@ -1433,7 +1438,7 @@ function Navbar() {
               children: "Polygon"
             }, void 0, !1, {
               fileName: "app/routes/login/index.tsx",
-              lineNumber: 63,
+              lineNumber: 71,
               columnNumber: 11
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("button", {
@@ -1441,7 +1446,7 @@ function Navbar() {
               className: "text-white bg-first hover:bg-second font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3",
               onClick: async () => {
                 let address = await loginWithMetamask(), formData = new FormData();
-                formData.append("address", address), submit(formData, {
+                formData.append("address", address), console.log("pasa por aca?"), submit(formData, {
                   action: "/login/?index",
                   method: "post",
                   encType: "application/x-www-form-urlencoded",
@@ -1451,53 +1456,33 @@ function Navbar() {
               children: "Connect wallet"
             }, void 0, !1, {
               fileName: "app/routes/login/index.tsx",
-              lineNumber: 70,
+              lineNumber: 78,
               columnNumber: 11
             }, this)
           ]
         }, void 0, !0, {
           fileName: "app/routes/login/index.tsx",
-          lineNumber: 62,
+          lineNumber: 70,
           columnNumber: 9
         }, this)
       ]
     }, void 0, !0, {
       fileName: "app/routes/login/index.tsx",
-      lineNumber: 56,
+      lineNumber: 64,
       columnNumber: 7
     }, this)
   }, void 0, !1, {
     fileName: "app/routes/login/index.tsx",
-    lineNumber: 55,
+    lineNumber: 63,
     columnNumber: 5
   }, this);
 }
 function ErrorBoundary2({ error }) {
   return console.error(error), /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("html", {
     children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("head", {
-        children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("title", {
-            children: "Oh no!"
-          }, void 0, !1, {
-            fileName: "app/routes/login/index.tsx",
-            lineNumber: 88,
-            columnNumber: 9
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_react8.Meta, {}, void 0, !1, {
-            fileName: "app/routes/login/index.tsx",
-            lineNumber: 89,
-            columnNumber: 9
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_react8.Links, {}, void 0, !1, {
-            fileName: "app/routes/login/index.tsx",
-            lineNumber: 90,
-            columnNumber: 9
-          }, this)
-        ]
-      }, void 0, !0, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("head", {}, void 0, !1, {
         fileName: "app/routes/login/index.tsx",
-        lineNumber: 87,
+        lineNumber: 95,
         columnNumber: 7
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("body", {
@@ -1505,25 +1490,25 @@ function ErrorBoundary2({ error }) {
           error.message,
           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_react8.Scripts, {}, void 0, !1, {
             fileName: "app/routes/login/index.tsx",
-            lineNumber: 94,
+            lineNumber: 98,
             columnNumber: 9
           }, this)
         ]
       }, void 0, !0, {
         fileName: "app/routes/login/index.tsx",
-        lineNumber: 92,
+        lineNumber: 96,
         columnNumber: 7
       }, this)
     ]
   }, void 0, !0, {
     fileName: "app/routes/login/index.tsx",
-    lineNumber: 86,
+    lineNumber: 94,
     columnNumber: 5
   }, this);
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { version: "67c9f684", entry: { module: "/build/entry.client-LVYDOQHP.js", imports: ["/build/_shared/chunk-L47QLFMH.js", "/build/_shared/chunk-MLBUYSNZ.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-SPXVWKJY.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/connect-wallet": { id: "routes/connect-wallet", parentId: "root", path: "connect-wallet", index: void 0, caseSensitive: void 0, module: "/build/routes/connect-wallet-SI75VZ2J.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/connected": { id: "routes/connected", parentId: "root", path: "connected", index: void 0, caseSensitive: void 0, module: "/build/routes/connected-4UMHIVBK.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-GLLP5WTC.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard/index": { id: "routes/dashboard/index", parentId: "routes/dashboard", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/dashboard/index-RVQHZTUW.js", imports: ["/build/_shared/chunk-DWVSHSKJ.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !0 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-AXRSTLTY.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/login": { id: "routes/login", parentId: "root", path: "login", index: void 0, caseSensitive: void 0, module: "/build/routes/login-GDJZ5FDI.js", imports: ["/build/_shared/chunk-B4DCL6UY.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/login/index": { id: "routes/login/index", parentId: "routes/login", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/login/index-YRVNYGSV.js", imports: ["/build/_shared/chunk-DWVSHSKJ.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !0 } }, url: "/build/manifest-67C9F684.js" };
+var assets_manifest_default = { version: "e098b094", entry: { module: "/build/entry.client-LVYDOQHP.js", imports: ["/build/_shared/chunk-L47QLFMH.js", "/build/_shared/chunk-MLBUYSNZ.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-SPXVWKJY.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/connect-wallet": { id: "routes/connect-wallet", parentId: "root", path: "connect-wallet", index: void 0, caseSensitive: void 0, module: "/build/routes/connect-wallet-SI75VZ2J.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/connected": { id: "routes/connected", parentId: "root", path: "connected", index: void 0, caseSensitive: void 0, module: "/build/routes/connected-4UMHIVBK.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-GLLP5WTC.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard/index": { id: "routes/dashboard/index", parentId: "routes/dashboard", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/dashboard/index-RVQHZTUW.js", imports: ["/build/_shared/chunk-DWVSHSKJ.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !0 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-AXRSTLTY.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/login": { id: "routes/login", parentId: "root", path: "login", index: void 0, caseSensitive: void 0, module: "/build/routes/login-GDJZ5FDI.js", imports: ["/build/_shared/chunk-B4DCL6UY.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/login/index": { id: "routes/login/index", parentId: "routes/login", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/login/index-AEVCB5E6.js", imports: ["/build/_shared/chunk-DWVSHSKJ.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !0 } }, url: "/build/manifest-E098B094.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
