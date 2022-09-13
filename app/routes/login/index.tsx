@@ -7,6 +7,8 @@ import { loginWithMetamask } from "~/blockchain/metamask";
 import { db } from "~/utils/db.server";
 
 import fs from "fs";
+import WalletConnect from "@walletconnect/client";
+import { subscribeToEvents } from "~/blockchain/wallet-connect";
 
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
@@ -48,14 +50,12 @@ export const action: ActionFunction = async ({ request }) => {
 export default function Navbar() {
   const submit = useSubmit();
 
-  const handleLogin = async () => {
+  const handleLoginMetamask = async () => {
     const address = await loginWithMetamask();
 
     const formData = new FormData();
 
     formData.append("address", address);
-
-    console.log("pasa por aca?");
 
     submit(formData, {
       action: "/login/?index",
@@ -63,6 +63,30 @@ export default function Navbar() {
       encType: "application/x-www-form-urlencoded",
       replace: true,
     });
+  };
+
+  const handleLoginWalletConnect = async () => {
+    console.log("WalletConnect");
+
+    // bridge url
+    const bridge = "https://bridge.walletconnect.org";
+
+    // create new connector
+    const connector: WalletConnect = new WalletConnect({
+      bridge, // Required
+    });
+
+    // check if already connected
+    if (!connector.connected) {
+      console.log("no esta conectado por lo que intenta conectarse");
+      // create new session
+      await connector.createSession();
+    }
+
+    console.log("llego hasta aca, justo antes de subscribirse a los eventos");
+
+    // subscribe to events
+    await subscribeToEvents(connector);
   };
 
   return (
@@ -84,9 +108,17 @@ export default function Navbar() {
           <button
             type="button"
             className="text-white bg-first hover:bg-second font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3"
-            onClick={handleLogin}
+            onClick={handleLoginMetamask}
           >
-            Connect wallet
+            Connect wallet with Metamask
+          </button>
+
+          <button
+            type="button"
+            className="text-white bg-third hover:bg-second font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            onClick={handleLoginWalletConnect}
+          >
+            Connect wallet with WalletConnect
           </button>
         </div>
       </div>
