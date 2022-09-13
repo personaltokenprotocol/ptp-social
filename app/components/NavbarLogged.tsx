@@ -16,7 +16,7 @@ export default function NavbarLogged({ address }: NavbarLoggedProps) {
             type="button"
             className="text-white bg-first hover:bg-second font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3"
           >
-            {address}
+            {address.slice(0, 6)}...{address.slice(-4)}
           </button>
 
           <Link to="/login">

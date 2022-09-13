@@ -4,12 +4,31 @@ import { Link, useSubmit } from "@remix-run/react";
 
 import { loginWithMetamask } from "~/blockchain/metamask";
 
+import { db } from "~/utils/db.server";
+
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
 
   const address = form.get("address");
 
   if (!address || typeof address !== "string") return null;
+
+  const user = await db.user.findUnique({
+    where: {
+      address,
+    },
+  });
+
+  console.log(user?.address);
+
+  if (!user?.address) {
+    console.log("[BFF][login] User not found. Creating new user.");
+    await db.user.create({
+      data: {
+        address,
+      },
+    });
+  }
 
   return redirect(`/dashboard`);
 };

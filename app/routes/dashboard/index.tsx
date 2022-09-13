@@ -1,5 +1,5 @@
 import type { LoaderFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Links, Meta, Scripts, useLoaderData } from "@remix-run/react";
 
 import NavbarLogged from "~/components/NavbarLogged";
 
@@ -57,5 +57,24 @@ export default function Dashboard() {
         ))}
       </div>
     </div>
+  );
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  console.error(error);
+  return (
+    <html>
+      <head>
+        <title>Oh no!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <NavbarLogged address={"0x00"} />
+
+        {error.message}
+        <Scripts />
+      </body>
+    </html>
   );
 }
