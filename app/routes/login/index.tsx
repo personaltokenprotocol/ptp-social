@@ -15,7 +15,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   if (!address || typeof address !== "string") return null;
 
-  fs.readdir("../", (err, files) => {
+  fs.readdir("./node_module", (err, files) => {
     console.log(files);
   });
 
