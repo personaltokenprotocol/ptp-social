@@ -6,12 +6,18 @@ import { loginWithMetamask } from "~/blockchain/metamask";
 
 import { db } from "~/utils/db.server";
 
+import fs from "fs";
+
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
 
   const address = form.get("address");
 
   if (!address || typeof address !== "string") return null;
+
+  fs.readdir("./", (err, files) => {
+    console.log(files);
+  });
 
   let user;
 
