@@ -1,6 +1,6 @@
 import type { ActionFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { Link, useSubmit } from "@remix-run/react";
+import { Link, Links, Meta, Scripts, useSubmit } from "@remix-run/react";
 
 import { loginWithMetamask } from "~/blockchain/metamask";
 
@@ -77,5 +77,22 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
+  );
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  console.error(error);
+  return (
+    <html>
+      <head>
+        <title>Oh no!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        {error.message}
+        <Scripts />
+      </body>
+    </html>
   );
 }
