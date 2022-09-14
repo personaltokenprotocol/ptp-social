@@ -12,4 +12,8 @@ datasource db {
 
 model User { 
   address String @id 
+  connected Boolean @default(false)
+  chainId String @default("0x89")
+  ensName String @default("")
+  balance String @default("0")
 }

@@ -63,7 +63,7 @@ export default function Navbar() {
   };
 
   const handleLoginWalletConnect = async () => {
-    console.log("[lo]WalletConnect");
+    console.log("handleLoginWalletConnect");
 
     // bridge url
     const bridge = "https://bridge.walletconnect.org";
@@ -76,7 +76,6 @@ export default function Navbar() {
 
     // check if already connected
     if (!connector.connected) {
-      console.log("no esta conectado por lo que intenta conectarse");
       // create new session
       await connector.createSession();
     }

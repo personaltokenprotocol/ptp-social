@@ -1,4 +1,14 @@
 import type WalletConnect from "@walletconnect/client";
+import type { IInternalEvent } from "@walletconnect/types";
+
+async function onConnect(payload: IInternalEvent) {
+  const { chainId, accounts } = payload.params[0];
+
+  const address = accounts[0];
+
+  return { address, chainId };
+  // ...
+}
 
 export async function subscribeToEvents(connector: WalletConnect) {
   connector.on("session_update", (error, payload) => {
@@ -15,6 +25,7 @@ export async function subscribeToEvents(connector: WalletConnect) {
     }
 
     console.log("connect", payload);
+    onConnect(payload);
   });
 
   connector.on("disconnect", (error, payload) => {
