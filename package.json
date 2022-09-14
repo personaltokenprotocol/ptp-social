@@ -22,7 +22,8 @@
     "graphql-request": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.4.0"
+    "react-icons": "^4.4.0",
+    "tslib": "^2.4.0"
   },
   "devDependencies": {
     "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
