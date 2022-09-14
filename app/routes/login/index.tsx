@@ -6,8 +6,9 @@ import { loginWithMetamask } from "~/blockchain/metamask";
 
 import { db } from "~/utils/db.server";
 
-import fs from "fs";
 import WalletConnect from "@walletconnect/client";
+import QRCodeModal from "@walletconnect/qrcode-modal";
+
 import { subscribeToEvents } from "~/blockchain/wallet-connect";
 
 export const action: ActionFunction = async ({ request }) => {
@@ -16,10 +17,6 @@ export const action: ActionFunction = async ({ request }) => {
   const address = form.get("address");
 
   if (!address || typeof address !== "string") return null;
-
-  fs.readdir("./node_modules", (err, files) => {
-    console.log(files);
-  });
 
   let user;
 
@@ -66,7 +63,7 @@ export default function Navbar() {
   };
 
   const handleLoginWalletConnect = async () => {
-    console.log("WalletConnect");
+    console.log("[lo]WalletConnect");
 
     // bridge url
     const bridge = "https://bridge.walletconnect.org";
@@ -74,6 +71,7 @@ export default function Navbar() {
     // create new connector
     const connector: WalletConnect = new WalletConnect({
       bridge, // Required
+      qrcodeModal: QRCodeModal,
     });
 
     // check if already connected
@@ -82,8 +80,6 @@ export default function Navbar() {
       // create new session
       await connector.createSession();
     }
-
-    console.log("llego hasta aca, justo antes de subscribirse a los eventos");
 
     // subscribe to events
     await subscribeToEvents(connector);
@@ -107,7 +103,7 @@ export default function Navbar() {
 
           <button
             type="button"
-            className="text-white bg-first hover:bg-second font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3"
+            className="text-white bg-first hover:bg-second font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 hidden sm:block"
             onClick={handleLoginMetamask}
           >
             Connect wallet with Metamask
@@ -115,7 +111,7 @@ export default function Navbar() {
 
           <button
             type="button"
-            className="text-white bg-third hover:bg-second font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            className="text-white bg-third hover:bg-second font-medium rounded-lg text-sm px-5 py-2.5 text-center sm:hidden"
             onClick={handleLoginWalletConnect}
           >
             Connect wallet with WalletConnect
