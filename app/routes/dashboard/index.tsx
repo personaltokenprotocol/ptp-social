@@ -1,4 +1,5 @@
-import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
+import type { ActionFunction, LoaderFunction } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { Links, Meta, Scripts, useLoaderData } from "@remix-run/react";
 
 import NavbarLogged from "~/components/NavbarLogged";
@@ -13,16 +14,11 @@ import Post from "~/components/Social/Post";
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
 
-  console.log("se activa esta action en el navbarlogged?");
-
   const address = form.get("address");
   const connected = form.get("connected");
 
   if (!address || typeof address !== "string") return null;
   if (!connected || typeof connected !== "string") return null;
-
-  console.log(connected === "true");
-  console.log(address);
 
   await db.user.updateMany({
     where: {
@@ -39,7 +35,15 @@ export const action: ActionFunction = async ({ request }) => {
 export const loader: LoaderFunction = async () => {
   console.log("[BFF][dashboard] Loading feed");
 
-  const user = await db.user.findMany();
+  const user = await db.user.findMany({
+    where: {
+      connected: true,
+    },
+  });
+
+  if (user.length === 0) {
+    throw new Error("No user connected");
+  }
 
   const lens = new GraphQLClient("https://api.lens.dev/playground");
 

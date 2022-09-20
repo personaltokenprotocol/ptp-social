@@ -39,13 +39,8 @@ export const action: ActionFunction = async ({ request }) => {
 
     console.log("[BFF][login] user", user);
   } catch (error) {
-    throw new Error("cannot find user, error: " + error);
-  }
+    console.log("[BFF][login] User not found. Creating new user");
 
-  console.log(user?.address);
-
-  if (!user?.address) {
-    console.log("[BFF][login] User not found. Creating new user.");
     await db.user.create({
       data: {
         address,
