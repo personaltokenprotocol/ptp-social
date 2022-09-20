@@ -10,12 +10,18 @@ import { GraphQLClient } from "graphql-request";
 import { ExplorePublications } from "~/blockchain/lens-api";
 
 import Post from "~/components/Social/Post";
+import { defaultWallet } from "~/blockchain/constast";
 
 export const action: ActionFunction = async ({ request }) => {
+  console.log("[BFF][dashboard][logout] se ejecuta el action !!!");
   const form = await request.formData();
 
   const address = form.get("address");
   const connected = form.get("connected");
+
+  console.log(
+    `[BFF][dashboard][logout] address: ${address}, connected: ${connected}`
+  );
 
   if (!address || typeof address !== "string") return null;
   if (!connected || typeof connected !== "string") return null;
@@ -96,7 +102,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
         <Links />
       </head>
       <body>
-        <NavbarLogged address={"0x00"} />
+        <NavbarLogged address={defaultWallet.address} />
 
         <p className="p-10 text-2xl text-third">{error.message}</p>
         <Scripts />

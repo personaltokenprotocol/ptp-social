@@ -19,6 +19,8 @@ export const action: ActionFunction = async ({ request }) => {
 
   if (!address || typeof address !== "string") return null;
 
+  console.log(`[BFF][login] address: ${address}, connected: ${connected}`);
+
   let user;
 
   try {
@@ -37,7 +39,7 @@ export const action: ActionFunction = async ({ request }) => {
       },
     });
 
-    console.log("[BFF][login] user", user);
+    console.log("[BFF][login] user:", user);
   } catch (error) {
     console.log("[BFF][login] User not found. Creating new user");
 
@@ -55,6 +57,7 @@ export default function Navbar() {
   const submit = useSubmit();
 
   const handleLoginMetamask = async () => {
+    console.log("waiting connection with metamask");
     const address = await loginWithMetamask();
 
     const formData = new FormData();
@@ -89,7 +92,22 @@ export default function Navbar() {
     }
 
     // subscribe to events
-    await subscribeToEvents(connector);
+    const event = await subscribeToEvents(connector);
+
+    // TODO: check if event is wallet address
+    // if (event) {
+
+    const formData = new FormData();
+
+    formData.append("address", event);
+    formData.append("connected", "true");
+
+    submit(formData, {
+      action: "/login/?index",
+      method: "post",
+      encType: "application/x-www-form-urlencoded",
+      replace: true,
+    });
   };
 
   return (

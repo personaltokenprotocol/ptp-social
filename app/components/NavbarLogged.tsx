@@ -1,4 +1,5 @@
 import { Link, useSubmit } from "@remix-run/react";
+import { defaultWallet } from "~/blockchain/constast";
 
 type NavbarLoggedProps = {
   address: string;
@@ -8,6 +9,7 @@ export default function NavbarLogged({ address }: NavbarLoggedProps) {
   const submit = useSubmit();
 
   const handleLogoutMetamask = () => {
+    console.log("ocurre esto al menos");
     const formData = new FormData();
 
     formData.append("address", address);
@@ -28,16 +30,18 @@ export default function NavbarLogged({ address }: NavbarLoggedProps) {
           <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white hidden md:block"></span>
         </Link>
         <div className="flex md:order-2">
-          <button
-            type="button"
-            className="text-white bg-first hover:bg-second font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3"
-          >
-            {address.slice(0, 6)}...{address.slice(-4)}
-          </button>
+          {address != defaultWallet.address && (
+            <button
+              type="button"
+              className="text-white bg-first hover:bg-second font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3"
+            >
+              {address.slice(0, 6)}...{address.slice(-4)}
+            </button>
+          )}
 
           <button
             type="button"
-            className="text-white bg-third hover:bg-first font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 hidden sm:block"
+            className="text-white bg-third hover:bg-first font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 sm:block"
             onClick={handleLogoutMetamask}
           >
             Logout
