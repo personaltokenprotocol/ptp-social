@@ -15,6 +15,8 @@ export default function NavbarLogged({ address }: NavbarLoggedProps) {
     formData.append("address", address);
     formData.append("connected", "false");
 
+    console.log(address);
+
     submit(formData, {
       action: "/dashboard/?index",
       method: "post",

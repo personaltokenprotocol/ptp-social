@@ -57,7 +57,9 @@ export default function Navbar() {
   const submit = useSubmit();
 
   const handleLoginMetamask = async () => {
-    console.log("waiting connection with metamask");
+    console.log(
+      "[browser][handleLoginMetamask] Waiting connection with metamask ..."
+    );
     const address = await loginWithMetamask();
 
     const formData = new FormData();
@@ -74,8 +76,9 @@ export default function Navbar() {
   };
 
   const handleLoginWalletConnect = async () => {
-    console.log("handleLoginWalletConnect");
-
+    console.log(
+      "[browser][handleLoginWalletConnect] Waiting connection with walletConnect ..."
+    );
     // bridge url
     const bridge = "https://bridge.walletconnect.org";
 
@@ -89,6 +92,24 @@ export default function Navbar() {
     if (!connector.connected) {
       // create new session
       await connector.createSession();
+    } else {
+      console.log("[browser][handleLoginWalletConnect] connector:", connector);
+
+      const address = connector.accounts[0];
+
+      console.log("[browser][handleLoginWalletConnect] address:", address);
+
+      const formData = new FormData();
+
+      formData.append("address", address);
+      formData.append("connected", "true");
+
+      submit(formData, {
+        action: "/login/?index",
+        method: "post",
+        encType: "application/x-www-form-urlencoded",
+        replace: true,
+      });
     }
 
     // subscribe to events
