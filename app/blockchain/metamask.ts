@@ -26,7 +26,7 @@ export async function loginWithMetamask() {
     method: "eth_requestAccounts",
   });
 
-  console.log("[blockchain][metamask]loginWithMetamask] address", address);
+  console.log("[blockchain][metamask][loginWithMetamask] address", address);
 
   return address;
 }

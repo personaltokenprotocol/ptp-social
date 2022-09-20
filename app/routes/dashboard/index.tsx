@@ -1,4 +1,4 @@
-import type { LoaderFunction } from "@remix-run/node";
+import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
 import { Links, Meta, Scripts, useLoaderData } from "@remix-run/react";
 
 import NavbarLogged from "~/components/NavbarLogged";
@@ -10,8 +10,34 @@ import { ExplorePublications } from "~/blockchain/lens-api";
 
 import Post from "~/components/Social/Post";
 
+export const action: ActionFunction = async ({ request }) => {
+  const form = await request.formData();
+
+  console.log("se activa esta action en el navbarlogged?");
+
+  const address = form.get("address");
+  const connected = form.get("connected");
+
+  if (!address || typeof address !== "string") return null;
+  if (!connected || typeof connected !== "string") return null;
+
+  console.log(connected === "true");
+  console.log(address);
+
+  await db.user.updateMany({
+    where: {
+      address,
+    },
+    data: {
+      connected: connected === "true",
+    },
+  });
+
+  return redirect(`/login`);
+};
+
 export const loader: LoaderFunction = async () => {
-  console.log("[BFF][dashboard]");
+  console.log("[BFF][dashboard] Loading feed");
 
   const user = await db.user.findMany();
 
@@ -26,10 +52,6 @@ export const loader: LoaderFunction = async () => {
 
 export default function Dashboard() {
   const data = useLoaderData();
-
-  // data.items.map((item: any) => {
-  //   console.log("[Dashboard]", item.createdAt);
-  // });
 
   return (
     <div>
@@ -46,7 +68,7 @@ export default function Dashboard() {
             id={item.id}
             name={item.profile.name}
             handle={item.profile.handle}
-            profileImage={item.profile.picture.original?.url}
+            profileImage={item.profile.picture?.original?.url}
             content={item.metadata.content}
             image={item.metadata.media[0]?.original?.url}
             collection={item.stats.totalAmountOfCollects}
@@ -72,7 +94,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
       <body>
         <NavbarLogged address={"0x00"} />
 
-        {error.message}
+        <p className="p-10 text-2xl text-third">{error.message}</p>
         <Scripts />
       </body>
     </html>

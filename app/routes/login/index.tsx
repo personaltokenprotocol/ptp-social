@@ -15,6 +15,7 @@ export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
 
   const address = form.get("address");
+  const connected = form.get("connected");
 
   if (!address || typeof address !== "string") return null;
 
@@ -26,6 +27,17 @@ export const action: ActionFunction = async ({ request }) => {
         address,
       },
     });
+
+    await db.user.updateMany({
+      where: {
+        address,
+      },
+      data: {
+        connected: connected === "true",
+      },
+    });
+
+    console.log("[BFF][login] user", user);
   } catch (error) {
     throw new Error("cannot find user, error: " + error);
   }
@@ -53,6 +65,7 @@ export default function Navbar() {
     const formData = new FormData();
 
     formData.append("address", address);
+    formData.append("connected", "true");
 
     submit(formData, {
       action: "/login/?index",

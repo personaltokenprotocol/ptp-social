@@ -40,7 +40,7 @@ export default function Post({
             ) : (
               <div className="w-10 h-10 bg-first rounded-full ">
                 <p className="text-center mt-1.5 text-white">
-                  {name.charAt(0)}
+                  {name?.charAt(0)}
                 </p>{" "}
               </div>
             )}
