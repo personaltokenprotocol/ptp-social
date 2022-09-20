@@ -90,6 +90,7 @@ export default function Navbar() {
 
     // check if already connected
     if (!connector.connected) {
+      console.log("[browser][handleLoginWalletConnect] Creating session ...");
       // create new session
       await connector.createSession();
     } else {
@@ -112,23 +113,10 @@ export default function Navbar() {
       });
     }
 
-    // subscribe to events
-    const event = await subscribeToEvents(connector);
+    console.log("[browser][handleLoginWalletConnect] subscribeToEvents ...");
 
-    // TODO: check if event is wallet address
-    // if (event) {
-
-    const formData = new FormData();
-
-    formData.append("address", event);
-    formData.append("connected", "true");
-
-    submit(formData, {
-      action: "/login/?index",
-      method: "post",
-      encType: "application/x-www-form-urlencoded",
-      replace: true,
-    });
+    // subscribe to events and submit form
+    await subscribeToEvents(connector, submit);
   };
 
   return (
