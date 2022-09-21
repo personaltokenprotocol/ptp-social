@@ -67,9 +67,9 @@ export default function Dashboard() {
     <div>
       <NavbarLogged address={data.address} />
 
-      <h1 className="px-10 pt-5 font-bold text-first text-2xl text-center">
+      {/* <h1 className="px-10 pt-5 font-bold text-first text-2xl text-center">
         What's going on ?
-      </h1>
+      </h1> */}
 
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 sm:w-2/3 content-center m-auto">
         {data.items.map((item: any) => (

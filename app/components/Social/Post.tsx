@@ -1,3 +1,4 @@
+import { Link } from "@remix-run/react";
 import { calculateHoursBetweenNowAndDate } from "~/utils/hour";
 import { transformToIpfsUrl } from "~/utils/ipfs";
 import { resume } from "~/utils/text";
@@ -27,7 +28,7 @@ export default function Post({
   createdAt,
 }: PostProps) {
   return (
-    <div className="rounded-lg p-4 m-4 border-black border-2 flex flex-col justify-between">
+    <div className=" p-4 m-4  border-2 flex flex-col justify-between">
       <div className="w-full">
         <div className="flex justify-between">
           <div className="flex">
@@ -47,9 +48,13 @@ export default function Post({
 
             <div className="content-start">
               {name ? (
-                <p className="text-black text-xs font-bold px-3">{name}</p>
+                <Link to={`/${handle}`}>
+                  <p className="text-black text-xs font-bold px-3">{name}</p>
+                </Link>
               ) : (
-                <p className="text-black text-xs font-bold px-3">{handle}</p>
+                <Link to={`/${handle}`}>
+                  <p className="text-black text-xs font-bold px-3">{handle}</p>
+                </Link>
               )}
 
               <p className="text-gray-500 text-xs px-3">@{handle}</p>
