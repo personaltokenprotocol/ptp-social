@@ -26,6 +26,8 @@ export default function App() {
       <head>
         <Meta />
         <Links />
+        <link rel="stylesheet" href="https://lens.xyz/widget-styles.css" />
+        <script async src="https://lens.xyz/widget.js"></script>
       </head>
       <body>
         <Outlet />

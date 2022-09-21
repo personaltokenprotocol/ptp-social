@@ -88,14 +88,16 @@ export default function Profile() {
             </div>
           </div>
 
-          <div className="flex justify-between mt-32 md:mt-0 md:justify-center">
-            <button className="text-white py-2 px-4 uppercase rounded-xl bg-first font-medium">
-              Connect
-            </button>
+          <div className="m-auto">
+            <div className="flex mt-32 md:mt-0 md:justify-center">
+              <div className="pr-3">
+                <span id="lens-follow-icon" data-handle={data.handle} />
+              </div>
 
-            <button className="text-white py-2 px-4 uppercase rounded-xl  bg-second font-medium">
-              Message
-            </button>
+              <button className="text-white py-2 px-4 uppercase rounded-xl  bg-second font-medium">
+                Message
+              </button>
+            </div>
           </div>
         </div>
 
