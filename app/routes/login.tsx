@@ -95,7 +95,8 @@ export default function Login() {
 
       {transition.state === "loading" && (
         <div className="pt-10 grid place-items-center">
-          <h1 className="text-2xl font-semibold">Loading...</h1>
+          <h1 className="text-2xl font-semibold">Connecting with garden </h1>
+          <img src="/LENS_pattern_3.gif" alt="lens" />
         </div>
       )}
 
