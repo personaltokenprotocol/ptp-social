@@ -48,11 +48,11 @@ export default function Post({
 
             <div className="content-start">
               {name ? (
-                <Link to={`/${handle}`}>
+                <Link to={`/${handle}`} prefetch="intent">
                   <p className="text-black text-xs font-bold px-3">{name}</p>
                 </Link>
               ) : (
-                <Link to={`/${handle}`}>
+                <Link to={`/${handle}`} prefetch="intent">
                   <p className="text-black text-xs font-bold px-3">{handle}</p>
                 </Link>
               )}
