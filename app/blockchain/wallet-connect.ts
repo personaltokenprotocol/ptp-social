@@ -27,7 +27,7 @@ export async function subscribeToEvents(
       throw error;
     }
 
-    console.log("session_update", payload);
+    console.log("[blockchain][walletConnect] event 'session_update'", payload);
 
     const address = onSessionUpdate(payload);
 

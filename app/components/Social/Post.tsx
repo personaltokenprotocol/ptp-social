@@ -28,7 +28,7 @@ export default function Post({
 }: PostProps) {
   return (
     <div className="rounded-lg p-4 m-4 border-black border-2 flex flex-col justify-between">
-      <div>
+      <div className="w-full">
         <div className="flex justify-between">
           <div className="flex">
             {profileImage ? (
@@ -62,7 +62,7 @@ export default function Post({
         </div>
 
         <div className="pt-5">
-          <p className="text-black text-sm text-justify whitespace-pre-line">
+          <p className="text-black text-sm text-justify whitespace-pre-line ">
             {resume(content!)}
           </p>
         </div>
