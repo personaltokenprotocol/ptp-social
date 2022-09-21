@@ -13,7 +13,6 @@ import Post from "~/components/Social/Post";
 import { defaultWallet } from "~/blockchain/constast";
 
 export const action: ActionFunction = async ({ request }) => {
-  console.log("[BFF][dashboard][logout] se ejecuta el action !!!");
   const form = await request.formData();
 
   const address = form.get("address");
@@ -39,7 +38,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export const loader: LoaderFunction = async () => {
-  console.log("[BFF][dashboard] Loading feed");
+  console.log("[BFF][dashboard] Loading feed ...");
 
   const user = await db.user.findMany({
     where: {
@@ -53,6 +52,8 @@ export const loader: LoaderFunction = async () => {
 
   const lens = new GraphQLClient("https://api.lens.dev/playground");
 
+  console.log("[BFF][dashboard] Fetching feed from Lens API ...");
+
   const response = await lens.request(ExplorePublications);
 
   const items = response.explorePublications;
@@ -62,6 +63,8 @@ export const loader: LoaderFunction = async () => {
 
 export default function Dashboard() {
   const data = useLoaderData();
+
+  console.log(data);
 
   return (
     <div>

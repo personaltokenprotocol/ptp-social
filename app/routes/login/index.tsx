@@ -116,7 +116,7 @@ export default function Navbar() {
     console.log("[browser][handleLoginWalletConnect] subscribeToEvents ...");
 
     // subscribe to events and submit form
-    await subscribeToEvents(connector, submit);
+    subscribeToEvents(connector, submit);
   };
 
   return (
@@ -128,12 +128,12 @@ export default function Navbar() {
           </span>
         </Link>
         <div className="flex md:order-2">
-          <button
+          {/* <button
             type="button"
             className="text-black bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 "
           >
             Polygon
-          </button>
+          </button> */}
 
           <button
             type="button"

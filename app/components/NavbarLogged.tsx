@@ -9,13 +9,10 @@ export default function NavbarLogged({ address }: NavbarLoggedProps) {
   const submit = useSubmit();
 
   const handleLogoutMetamask = () => {
-    console.log("ocurre esto al menos");
     const formData = new FormData();
 
     formData.append("address", address);
     formData.append("connected", "false");
-
-    console.log(address);
 
     submit(formData, {
       action: "/dashboard/?index",

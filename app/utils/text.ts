@@ -1,6 +1,6 @@
 // print large of content
 export function resume(content: string) {
-  content = urllify(content);
+  // content = urllify(content);
 
   if (content?.length > 500) {
     return `${content.slice(0, 500)} ...`;
