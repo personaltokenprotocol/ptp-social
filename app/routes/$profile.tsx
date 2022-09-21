@@ -4,7 +4,7 @@ import { useLoaderData } from "@remix-run/react";
 import { GraphQLClient } from "graphql-request";
 
 import { GetProfile } from "~/blockchain/lens-api";
-import { transformToIpfsUrl } from "~/utils/ipfs";
+import { transformToIpfsCoverImageUrl, transformToIpfsUrl } from "~/utils/ipfs";
 
 export const loader: LoaderFunction = async ({ params }) => {
   console.log(`[BFF] Loading profile ${params.profile}...`);
@@ -29,8 +29,18 @@ export default function Profile() {
 
   return (
     <div>
-      <div className="p-10 bg-white shadow mt-24">
+      <div className=" bg-white shadow">
         <div className="grid grid-cols-1 md:grid-cols-3">
+          <div className="relative w-full">
+            <img
+              src={transformToIpfsCoverImageUrl(
+                data.coverPicture?.original?.url
+              )}
+              alt="cover"
+              className="bg-cover bg-center h-64 w-full object-cover rounded-b-md"
+            />
+          </div>
+
           <div className="grid grid-cols-2 text-center order-last md:order-first mt-10 md:mt-0">
             <div>
               <p className="font-bold text-gray-700 text-xl">
