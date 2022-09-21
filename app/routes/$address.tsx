@@ -1,16 +1,51 @@
+import type { LoaderFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+
+import { GraphQLClient } from "graphql-request";
+
+import { GetProfile } from "~/blockchain/lens-api";
+
+export const loader: LoaderFunction = async () => {
+  console.log("[BFF][dashboard] Loading profile ...");
+
+  const lens = new GraphQLClient("https://api.lens.dev/playground");
+
+  const response = await lens.request(GetProfile);
+
+  const profile = response.profile;
+
+  return profile;
+};
+
 export default function Profile() {
+  const data = useLoaderData();
+
+  console.log("[BFF][dashboard] data:", data);
+
   return (
     <div>
       <div className="p-10 bg-white shadow mt-24">
         <div className="grid grid-cols-1 md:grid-cols-3">
-          <div className="grid grid-cols-2 text-center order-last md:order-first mt-10 md:mt-0">
+          <div className="grid grid-cols-3 text-center order-last md:order-first mt-10 md:mt-0">
             <div>
-              <p className="font-bold text-gray-700 text-xl">4</p>
+              <p className="font-bold text-gray-700 text-xl">
+                {data.stats.totalFollowing}
+              </p>
               <p className="text-gray-400">Following</p>
             </div>
+
             <div>
-              <p className="font-bold text-gray-700 text-xl">3</p>
+              <p className="font-bold text-gray-700 text-xl">
+                {data.stats.totalFollowers}
+              </p>
               <p className="text-gray-400">Followers</p>
+            </div>
+
+            <div>
+              <p className="font-bold text-gray-700 text-xl">
+                {data.stats.totalPublications}
+              </p>
+              <p className="text-gray-400">Publications</p>
             </div>
           </div>
 
@@ -36,24 +71,21 @@ export default function Profile() {
         </div>
 
         <div className="mt-10 text-center border-b pb-12">
-          <h1 className="text-4xl font-medium text-gray-700">Cris Valdivia</h1>
+          <h1 className="text-4xl font-medium text-gray-700">{data.name}</h1>
 
-          <p className="font-light text-gray-600 mt-3">
-            @cristianvaldivia.lens
-          </p>
+          <p className="font-light text-gray-600 mt-3">{data.handle}</p>
 
-          <p className="mt-8 text-gray-500">
+          <p className="font-light text-gray-600 mt-3">0x01</p>
+
+          {/* <p className="mt-8 text-gray-500">
             Solution Manager - Creative Tim Officer
-          </p>
+          </p> */}
 
-          <p className="mt-2 text-gray-500">University of Computer Science</p>
+          {/* <p className="mt-2 text-gray-500">University of Computer Science</p> */}
         </div>
         <div className="mt-12 flex flex-col justify-center">
           <p className="text-gray-600 text-center font-light lg:px-16">
-            An artist of considerable range, Ryan — the name taken by
-            Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and
-            records all of his own music, giving it a warm, intimate feel with a
-            solid groove structure. An artist of considerable range.
+            {data.bio}
           </p>
         </div>
       </div>
