@@ -4,13 +4,18 @@ import { useLoaderData } from "@remix-run/react";
 import { GraphQLClient } from "graphql-request";
 
 import { GetProfile } from "~/blockchain/lens-api";
+import { transformToIpfsUrl } from "~/utils/ipfs";
 
-export const loader: LoaderFunction = async () => {
-  console.log("[BFF][dashboard] Loading profile ...");
+export const loader: LoaderFunction = async ({ params }) => {
+  console.log(`[BFF] Loading profile ${params.profile}...`);
 
   const lens = new GraphQLClient("https://api.lens.dev/playground");
 
-  const response = await lens.request(GetProfile);
+  const variables = {
+    request: { handle: params.profile },
+  };
+
+  const response = await lens.request(GetProfile, variables);
 
   const profile = response.profile;
 
@@ -51,11 +56,19 @@ export default function Profile() {
 
           <div className="relative">
             <div className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center">
-              <img
-                className="rounded-full"
-                src="https://artistsatrisk.org/wp-content/uploads/2022/04/Ethereum-Logo-1.png"
-                alt="avatar"
-              />
+              {data.picture ? (
+                <img
+                  className="rounded-full"
+                  src={transformToIpfsUrl(data.picture?.original?.url)}
+                  alt="avatar"
+                />
+              ) : (
+                <div className="w-48 h-48 bg-first rounded-full flex items-center justify-center ">
+                  <p className="text-center text-white text-7xl">
+                    {data.name?.charAt(0)}
+                  </p>{" "}
+                </div>
+              )}
             </div>
           </div>
 
@@ -73,9 +86,9 @@ export default function Profile() {
         <div className="mt-10 text-center border-b pb-12">
           <h1 className="text-4xl font-medium text-gray-700">{data.name}</h1>
 
-          <p className="font-light text-gray-600 mt-3">{data.handle}</p>
+          <p className="font-light text-gray-600 mt-3">@{data.handle}</p>
 
-          <p className="font-light text-gray-600 mt-3">0x01</p>
+          <p className="font-light text-gray-600 mt-3">{data.id}</p>
 
           {/* <p className="mt-8 text-gray-500">
             Solution Manager - Creative Tim Officer

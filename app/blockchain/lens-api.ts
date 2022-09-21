@@ -351,8 +351,8 @@ const ExplorePublications = gql`
 `;
 
 const GetProfile = gql`
-  query Profile {
-    profile(request: { profileId: "0x01" }) {
+  query ($request: SingleProfileQueryRequest!) {
+    profile(request: $request) {
       id
       name
       bio
