@@ -20,12 +20,12 @@ export const transformToIpfsCoverImageUrl = (str: string): string => {
   const defaultCoverImage =
     "https://images.hola.com/imagenes/viajes/20220209204303/como-viajar-torres-del-paine-chile/1-49-229/shutterstock1680109243-a.jpg";
 
-  if (str === null) {
+  if (str === null || str === undefined) {
     return defaultCoverImage;
   }
 
   // check if string starts with ipfs://
-  if (str.startsWith("ipfs://")) {
+  if (str?.startsWith("ipfs://")) {
     const ipfsHash = removeIpfsPrefix(str);
 
     return addIpfsPrefix(ipfsHash);
