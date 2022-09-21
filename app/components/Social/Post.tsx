@@ -67,7 +67,7 @@ export default function Post({
         </div>
 
         <div className="pt-5">
-          <p className="text-black text-sm text-justify whitespace-pre-line ">
+          <p className="text-black text-sm text-justify whitespace-pre-line">
             {resume(content!)}
           </p>
         </div>

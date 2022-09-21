@@ -4,7 +4,13 @@ import { useLoaderData } from "@remix-run/react";
 import { GraphQLClient } from "graphql-request";
 
 import { GetProfile } from "~/blockchain/lens-api";
+
 import { transformToIpfsCoverImageUrl, transformToIpfsUrl } from "~/utils/ipfs";
+import { convertToTwitterUrl, urlify } from "~/utils/text";
+
+import { GoLocation } from "react-icons/go";
+import { TbWorld, TbHash } from "react-icons/tb";
+import { AiOutlineTwitter } from "react-icons/ai";
 
 export const loader: LoaderFunction = async ({ params }) => {
   console.log(`[BFF] Loading profile ${params.profile}...`);
@@ -94,21 +100,56 @@ export default function Profile() {
       </div>
 
       <div className="text-center border-b-2 p-6">
-        <p className="font-extralight text-sm text-gray-500">{data.bio}</p>
+        <p className="font-extralight text-sm text-gray-500 whitespace-pre-line">
+          {data.bio}
+        </p>
       </div>
 
       <div className="p-6">
-        <div className="flex">
-          <div className="text-sm"># &nbsp;</div>
+        <div className="flex p-1">
+          <div>
+            <TbHash className="w-5 h-5" />
+          </div>
 
-          <div className="text-sm">{data.id}</div>
+          <div className="text-sm pl-2">{data.id}</div>
         </div>
 
-        <div className="flex">
-          <div className="text-sm"> # &nbsp;</div>
+        {data.attributes[0].key == "location" && (
+          <div className="flex p-1">
+            <div>
+              <GoLocation className="w-5 h-5" />
+            </div>
 
-          <div className="text-sm"> {data.attributes[0].value} </div>
-        </div>
+            <div className="text-sm pl-2"> {data.attributes[0].value} </div>
+          </div>
+        )}
+
+        {data.attributes[1].key == "website" && (
+          <div className="flex p-1">
+            <div>
+              <TbWorld className="w-5 h-5" />
+            </div>
+
+            <a href={data.attributes[1].value} className="text-sm pl-2">
+              {urlify(data.attributes[1].value)}
+            </a>
+          </div>
+        )}
+
+        {data.attributes[1].key == "website" && (
+          <div className="flex p-1">
+            <div>
+              <AiOutlineTwitter className="w-5 h-5" />
+            </div>
+
+            <a
+              href={convertToTwitterUrl(data.attributes[2].value)}
+              className="text-sm pl-2"
+            >
+              {data.attributes[2].value}
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );

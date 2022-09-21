@@ -11,9 +11,22 @@ export function resume(content: string) {
 
 // detect url in text and convert to link
 // TODO: need to return html tag
-export function urllify(content: string) {
+// export function urllify(content: string) {
+//   const urlRegex = /(https?:\/\/[^\s]+)/g;
+//   return content.replace(urlRegex, function (url) {
+//     return ``;
+//   });
+// }
+
+// detect url in text and delete http:// or https://
+export function urlify(content: string) {
   const urlRegex = /(https?:\/\/[^\s]+)/g;
   return content.replace(urlRegex, function (url) {
-    return ``;
+    return url.replace("https://", "").replace("http://", "");
   });
+}
+
+// add at beginning of string https://twitter.com/
+export function convertToTwitterUrl(content: string) {
+  return `https://twitter.com/${content}`;
 }
