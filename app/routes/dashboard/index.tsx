@@ -71,9 +71,7 @@ export default function Dashboard() {
   const data = useLoaderData();
   const transition = useTransition();
 
-  console.log(transition);
-
-  console.log("[browser][Dashboard] transition ", transition);
+  // console.log("[browser][Dashboard] transition ", transition);
 
   return (
     <div>

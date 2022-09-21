@@ -31,7 +31,7 @@ export default function Profile() {
     <div>
       <div className="p-10 bg-white shadow mt-24">
         <div className="grid grid-cols-1 md:grid-cols-3">
-          <div className="grid grid-cols-3 text-center order-last md:order-first mt-10 md:mt-0">
+          <div className="grid grid-cols-2 text-center order-last md:order-first mt-10 md:mt-0">
             <div>
               <p className="font-bold text-gray-700 text-xl">
                 {data.stats.totalFollowing}
@@ -45,12 +45,28 @@ export default function Profile() {
               </p>
               <p className="text-gray-400">Followers</p>
             </div>
+          </div>
+
+          <div className="grid grid-cols-3 text-center order-last md:order-first mt-10 md:mt-0">
+            <div>
+              <p className="font-bold text-gray-700 text-xl">
+                {data.stats.totalComments}
+              </p>
+              <p className="text-gray-400">Comments</p>
+            </div>
 
             <div>
               <p className="font-bold text-gray-700 text-xl">
-                {data.stats.totalPublications}
+                {data.stats.totalPosts}
               </p>
-              <p className="text-gray-400">Publications</p>
+              <p className="text-gray-400">Posts</p>
+            </div>
+
+            <div>
+              <p className="font-bold text-gray-700 text-xl">
+                {data.stats.totalMirrors}
+              </p>
+              <p className="text-gray-400">Mirrors</p>
             </div>
           </div>
 
