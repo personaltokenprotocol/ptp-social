@@ -1,3 +1,62 @@
 export default function Profile() {
-  return <div> THis is profile</div>;
+  return (
+    <div>
+      <div className="p-10 bg-white shadow mt-24">
+        <div className="grid grid-cols-1 md:grid-cols-3">
+          <div className="grid grid-cols-2 text-center order-last md:order-first mt-10 md:mt-0">
+            <div>
+              <p className="font-bold text-gray-700 text-xl">4</p>
+              <p className="text-gray-400">Following</p>
+            </div>
+            <div>
+              <p className="font-bold text-gray-700 text-xl">3</p>
+              <p className="text-gray-400">Followers</p>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center">
+              <img
+                className="rounded-full"
+                src="https://artistsatrisk.org/wp-content/uploads/2022/04/Ethereum-Logo-1.png"
+                alt="avatar"
+              />
+            </div>
+          </div>
+
+          <div className="flex justify-between mt-32 md:mt-0 md:justify-center">
+            <button className="text-white py-2 px-4 uppercase rounded-xl bg-first font-medium">
+              Connect
+            </button>
+
+            <button className="text-white py-2 px-4 uppercase rounded-xl  bg-second font-medium">
+              Message
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-10 text-center border-b pb-12">
+          <h1 className="text-4xl font-medium text-gray-700">Cris Valdivia</h1>
+
+          <p className="font-light text-gray-600 mt-3">
+            @cristianvaldivia.lens
+          </p>
+
+          <p className="mt-8 text-gray-500">
+            Solution Manager - Creative Tim Officer
+          </p>
+
+          <p className="mt-2 text-gray-500">University of Computer Science</p>
+        </div>
+        <div className="mt-12 flex flex-col justify-center">
+          <p className="text-gray-600 text-center font-light lg:px-16">
+            An artist of considerable range, Ryan — the name taken by
+            Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and
+            records all of his own music, giving it a warm, intimate feel with a
+            solid groove structure. An artist of considerable range.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }
