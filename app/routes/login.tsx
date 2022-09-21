@@ -39,7 +39,7 @@ export default function Login() {
     });
   };
 
-  console.log("[browser][Login] transition ", transition);
+  // console.log("[browser][Login] transition ", transition);
 
   return (
     <div>

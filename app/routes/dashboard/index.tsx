@@ -1,6 +1,12 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { Links, Meta, Scripts, useLoaderData } from "@remix-run/react";
+import {
+  Links,
+  Meta,
+  Scripts,
+  useLoaderData,
+  useTransition,
+} from "@remix-run/react";
 
 import NavbarLogged from "~/components/NavbarLogged";
 
@@ -63,8 +69,11 @@ export const loader: LoaderFunction = async () => {
 
 export default function Dashboard() {
   const data = useLoaderData();
+  const transition = useTransition();
 
-  console.log(data);
+  console.log(transition);
+
+  console.log("[browser][Dashboard] transition ", transition);
 
   return (
     <div>
@@ -74,23 +83,32 @@ export default function Dashboard() {
         What's going on ?
       </h1> */}
 
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 sm:w-2/3 content-center m-auto">
-        {data.items.map((item: any) => (
-          <Post
-            key={item.id}
-            id={item.id}
-            name={item.profile.name}
-            handle={item.profile.handle}
-            profileImage={item.profile.picture?.original?.url}
-            content={item.metadata.content}
-            image={item.metadata.media[0]?.original?.url}
-            collection={item.stats.totalAmountOfCollects}
-            comments={item.stats.totalAmountOfComments}
-            mirrors={item.stats.totalAmountOfMirrors}
-            createdAt={item.createdAt}
-          />
-        ))}
-      </div>
+      {transition.state === "idle" && (
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 sm:w-2/3 content-center m-auto">
+          {data.items.map((item: any) => (
+            <Post
+              key={item.id}
+              id={item.id}
+              name={item.profile.name}
+              handle={item.profile.handle}
+              profileImage={item.profile.picture?.original?.url}
+              content={item.metadata.content}
+              image={item.metadata.media[0]?.original?.url}
+              collection={item.stats.totalAmountOfCollects}
+              comments={item.stats.totalAmountOfComments}
+              mirrors={item.stats.totalAmountOfMirrors}
+              createdAt={item.createdAt}
+            />
+          ))}
+        </div>
+      )}
+
+      {transition.state === "loading" && (
+        <div className="pt-10 grid place-items-center">
+          <h1 className="text-2xl font-semibold">Connecting with garden </h1>
+          <img src="/LENS_pattern_3.gif" alt="lens" />
+        </div>
+      )}
     </div>
   );
 }
