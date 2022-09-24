@@ -832,6 +832,10 @@ video {
   align-content: flex-start;
 }
 
+.content-around {
+  align-content: space-around;
+}
+
 .items-center {
   align-items: center;
 }

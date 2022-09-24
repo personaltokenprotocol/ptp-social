@@ -56,15 +56,23 @@ export default function Notifications() {
 
       <Outlet />
 
-      {/* <div className="w-full p-6">Aparece mensaje de mierda</div> */}
-
       <div className="fixed bottom-0 w-full">
         <div className="p-2">
-          <input
-            type="text"
-            placeholder="Write your message!"
-            className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-6 bg-gray-200 rounded-md py-3"
-          ></input>
+          <form method="post" action="/projects">
+            <label>
+              <textarea
+                name="description"
+                className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-6 bg-gray-200 rounded-md"
+              ></textarea>
+            </label>
+
+            <button
+              type="submit"
+              className="bg-second rounded-xl text-white p-2"
+            >
+              Send
+            </button>
+          </form>
         </div>
       </div>
     </div>
