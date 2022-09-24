@@ -1,31 +1,62 @@
+import type { LoaderFunction } from "@remix-run/node";
+import { Outlet, useLoaderData } from "@remix-run/react";
+
+import { GraphQLClient } from "graphql-request";
+
+import { GetProfile } from "~/blockchain/lens-api";
+
+import { transformToIpfsUrl } from "~/utils/ipfs";
+
+export const loader: LoaderFunction = async ({ params }) => {
+  console.log(`[BFF] Loading profile ${params.profile}...`);
+
+  const lens = new GraphQLClient("https://api.lens.dev/playground");
+
+  const variables = {
+    request: { handle: params.profile },
+  };
+
+  const response = await lens.request(GetProfile, variables);
+
+  const profile = response.profile;
+
+  return profile;
+};
+
 export default function Notifications() {
+  const data = useLoaderData();
+
   return (
     <div className="w-full">
       <div className="flex p-6 shadow-md">
-        {true ? (
+        {data.picture ? (
           <img
             className="w-12 h-12 rounded-full"
-            src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
+            src={transformToIpfsUrl(data.picture?.original?.url)}
             alt="avatar"
           />
         ) : (
           <div className="w-10 h-10 bg-first rounded-full ">
-            <p className="text-center mt-1.5 text-white">C</p>{" "}
+            <p className="text-center mt-1.5 text-white pt-0.5">
+              {data.name?.charAt(0)}
+            </p>
           </div>
         )}
 
         <div className="content-start my-auto">
           {true ? (
-            <p className="text-black text-sm font-bold px-3">Cris Valdivia</p>
+            <p className="text-black text-sm font-bold px-3">{data.name}</p>
           ) : (
-            <p className="text-black text-sm font-bold px-3">
-              @cristianvaldivia.lens
-            </p>
+            <p className="text-black text-sm font-bold px-3">{data.handle}</p>
           )}
 
-          <p className="text-gray-500 text-xs px-3">@cristianvaldivia.lens</p>
+          <p className="text-gray-500 text-xs px-3">@{data.handle}</p>
         </div>
       </div>
+
+      <Outlet />
+
+      {/* <div className="w-full p-6">Aparece mensaje de mierda</div> */}
 
       <div className="fixed bottom-0 w-full">
         <div className="p-2">

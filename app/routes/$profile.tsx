@@ -1,5 +1,5 @@
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
-import { Scripts, useLoaderData } from "@remix-run/react";
+import { Link, Scripts, useLoaderData } from "@remix-run/react";
 
 import { GraphQLClient } from "graphql-request";
 
@@ -102,11 +102,16 @@ export default function Profile() {
                 </div>
               </button>
 
-              <button className="text-white py-2 px-3 uppercase rounded-md bg-second ml-2">
-                <div>
-                  <AiOutlineMessage className="w-5 h-5" />
-                </div>
-              </button>
+              <Link to={`/notifications/${data.handle}`} prefetch="intent">
+                <button
+                  id="message"
+                  className="text-white py-2 px-3 uppercase rounded-md bg-second ml-2"
+                >
+                  <div>
+                    <AiOutlineMessage className="w-5 h-5" />
+                  </div>
+                </button>
+              </Link>
             </div>
           </div>
         </div>

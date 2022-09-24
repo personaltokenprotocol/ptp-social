@@ -1019,8 +1019,12 @@ video {
   padding-top: 0.75rem;
 }
 
-.pl-12 {
-  padding-left: 3rem;
+.pt-0\.5 {
+  padding-top: 0.125rem;
+}
+
+.pt-0 {
+  padding-top: 0px;
 }
 
 .pl-6 {
