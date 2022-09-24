@@ -73,7 +73,7 @@ export default function Post({
         </div>
 
         {image && (
-          <div className="pt-3 ">
+          <div className="pt-3">
             <img src={transformToIpfsUrl(image)} alt="post" />
           </div>
         )}
