@@ -10,6 +10,7 @@
     "postinstall": "remix-esbuild-override"
   },
   "dependencies": {
+    "@epnsproject/sdk-restapi": "^0.1.13",
     "@prisma/client": "^4.3.1",
     "@react-icons/all-files": "^4.1.0",
     "@remix-run/node": "^1.7.0",
@@ -17,7 +18,7 @@
     "@remix-run/serve": "^1.7.0",
     "@walletconnect/client": "^1.8.0",
     "@walletconnect/qrcode-modal": "^1.8.0",
-    "ethers": "^5.7.0",
+    "ethers": "^5.7.1",
     "graphql": "^16.6.0",
     "graphql-request": "^5.0.0",
     "react": "^18.2.0",
