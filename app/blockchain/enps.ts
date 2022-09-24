@@ -5,11 +5,11 @@ const PK = "544c3100122ea42b630ada035a18969a7faadc01df2ffc5834201c827f53bf4a"; /
 const Pkey = `0x${PK}`;
 const signer = new ethers.Wallet(Pkey);
 
-const sendNotification = async (
+async function sendNotification(
   title: string,
   body: string,
   recipient: string
-): Promise<boolean> => {
+): Promise<boolean> {
   console.log("[blockchain][enps][sendNotification]");
   try {
     const apiResponse = await EpnsAPI.payloads.sendNotification({
@@ -46,6 +46,33 @@ const sendNotification = async (
     console.error("Error: ", err);
     return false;
   }
-};
+}
 
-sendNotification("test", "test", "0x3aeC2276326CDC8E9a8A4351c338166e67105AC3");
+async function fetchNotifications(address: string): Promise<any> {
+  console.log("[blockchain][enps][fetchNotifications]");
+  try {
+    const notifications = await EpnsAPI.user.getFeeds({
+      user: `eip155:42:${address}`, // user address in CAIP
+      env: "staging",
+    });
+
+    console.log(
+      "[blockchain][enps][fetchNotifications] notifications: ",
+      notifications
+    );
+    return notifications;
+  } catch (err) {
+    console.error("Error: ", err);
+    return false;
+  }
+}
+
+export { sendNotification, fetchNotifications };
+
+// sendNotification(
+//   "test",
+//   "mensaje para Maca",
+//   "0x3aeC2276326CDC8E9a8A4351c338166e67105AC3"
+// );
+
+// fetchNotifications("0x3aeC2276326CDC8E9a8A4351c338166e67105AC3");
