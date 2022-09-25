@@ -51,6 +51,8 @@ export const loader: LoaderFunction = async ({ params }) => {
     request: { handle: params.profile },
   };
 
+  console.log(variables);
+
   const response = await lens.request(GetProfile, variables);
 
   const profile = response.profile;
