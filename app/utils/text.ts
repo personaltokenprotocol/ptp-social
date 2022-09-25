@@ -30,3 +30,8 @@ export function urlify(content: string) {
 export function convertToTwitterUrl(content: string) {
   return `https://twitter.com/${content}`;
 }
+
+// detect at beginning of string "PTP social tesnet -" and delete
+export function deletePTP(content: string) {
+  return content.replace("PTP social tesnet - ", "");
+}

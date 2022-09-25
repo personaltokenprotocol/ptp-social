@@ -21,7 +21,7 @@ async function sendNotification(
         body: `${body}`,
       },
       payload: {
-        title: `[sdk-test] payload title`,
+        title: `${title}`,
         body: `sample msg body`,
         cta: "",
         img: "",
@@ -56,10 +56,10 @@ async function fetchNotifications(address: string): Promise<any> {
       env: "staging",
     });
 
-    console.log(
-      "[blockchain][enps][fetchNotifications] notifications: ",
-      notifications
-    );
+    // console.log(
+    //   "[blockchain][enps][fetchNotifications] notifications: ",
+    //   notifications
+    // );
     return notifications;
   } catch (err) {
     console.error("Error: ", err);
