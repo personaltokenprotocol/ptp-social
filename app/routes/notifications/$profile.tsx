@@ -1,6 +1,6 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { Form, Outlet, useLoaderData, useSubmit } from "@remix-run/react";
+import { Form, Link, Outlet, useLoaderData, useSubmit } from "@remix-run/react";
 
 import { useRef } from "react";
 
@@ -86,28 +86,36 @@ export default function Notifications() {
     <div className="w-full">
       <div className="flex p-6 shadow-md">
         {data.profile.picture ? (
-          <img
-            className="w-12 h-12 rounded-full"
-            src={transformToIpfsUrl(data.profile.picture?.original?.url)}
-            alt="avatar"
-          />
+          <Link to={`/${data.profile.handle}`}>
+            <img
+              className="w-12 h-12 rounded-full"
+              src={transformToIpfsUrl(data.profile.picture?.original?.url)}
+              alt="avatar"
+            />
+          </Link>
         ) : (
-          <div className="w-10 h-10 bg-first rounded-full ">
-            <p className="text-center mt-1.5 text-white pt-0.5">
-              {data.profile.name?.charAt(0)}
-            </p>
-          </div>
+          <Link to={`/${data.profile.handle}`}>
+            <div className="w-10 h-10 bg-first rounded-full ">
+              <p className="text-center mt-1.5 text-white pt-2">
+                {data.profile.name?.charAt(0)}
+              </p>
+            </div>
+          </Link>
         )}
 
         <div className="content-start my-auto">
           {true ? (
-            <p className="text-black text-sm font-bold px-3">
-              {data.profile.name}
-            </p>
+            <Link to={`/${data.profile.handle}`}>
+              <p className="text-black text-sm font-bold px-3">
+                {data.profile.name}
+              </p>
+            </Link>
           ) : (
-            <p className="text-black text-sm font-bold px-3">
-              {data.profile.handle}
-            </p>
+            <Link to={`/${data.profile.handle}`}>
+              <p className="text-black text-sm font-bold px-3">
+                {data.profile.handle}
+              </p>
+            </Link>
           )}
 
           <p className="text-gray-500 text-xs px-3">@{data.profile.handle}</p>
@@ -124,7 +132,6 @@ export default function Notifications() {
                 name="message"
                 className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-6 bg-gray-200 rounded-md p-2"
               />
-              {/* <input name="sender" value={data.user[0]?.address} /> */}
             </label>
 
             <button

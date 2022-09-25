@@ -45,6 +45,10 @@ export default function Profile() {
       <Scripts />
 
       <div className="">
+        <div className="fixed right-0 bg-third rounded-xl z-10 p-2 m-2 text-white">
+          <Link to="/dashboard">Back</Link>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3">
           <div className="relative w-full">
             <img
