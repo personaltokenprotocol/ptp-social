@@ -1,6 +1,7 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import {
+  Link,
   Links,
   Meta,
   Outlet,
@@ -14,7 +15,10 @@ import NavbarLogged from "~/components/NavbarLogged";
 import { db } from "~/utils/db.server";
 
 import { GraphQLClient } from "graphql-request";
-import { ExplorePublications } from "~/blockchain/lens-api";
+import {
+  ExplorePublications,
+  GetProfileFollowing,
+} from "~/blockchain/lens-api";
 
 import Post from "~/components/Social/Post";
 import { defaultWallet } from "~/blockchain/constast";
@@ -65,7 +69,15 @@ export const loader: LoaderFunction = async () => {
 
   const items = response.explorePublications;
 
-  return { ...user[0], ...items };
+  const variables = {
+    request: { address: user[0].address },
+  };
+
+  const followingResponse = await lens.request(GetProfileFollowing, variables);
+
+  const following = followingResponse.following;
+
+  return { ...user[0], ...items, following };
 };
 
 export default function Dashboard() {
@@ -73,6 +85,8 @@ export default function Dashboard() {
   const transition = useTransition();
 
   // console.log("[browser][Dashboard] transition ", transition);
+
+  console.log(data);
 
   return (
     <div>
@@ -85,6 +99,14 @@ export default function Dashboard() {
       {transition.state === "idle" && (
         <div>
           <Outlet />
+
+          {data.following.items.map((item: any) => (
+            <Link to={`/${item.profile.handle}`} key={`${item.profile.id}`}>
+              <div key={item.profile.id} className="pl-6 pb-2">
+                @{item.profile.handle}
+              </div>
+            </Link>
+          ))}
 
           <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 sm:w-2/3 content-center m-auto">
             {data.items.map((item: any) => (
