@@ -12,6 +12,7 @@ import { db } from "~/utils/db.server";
 import { sendNotification } from "~/blockchain/enps";
 
 import { transformToIpfsUrl } from "~/utils/ipfs";
+import NavbarLogged from "~/components/NavbarLogged";
 
 export const action: ActionFunction = async ({ request }) => {
   console.log("[BFF][notifications] Sending notification...");
@@ -84,6 +85,8 @@ export default function Notifications() {
 
   return (
     <div className="w-full">
+      <NavbarLogged address={data.user[0].address} />
+
       <div className="flex p-6 shadow-md">
         {data.profile.picture ? (
           <Link to={`/${data.profile.handle}`}>
