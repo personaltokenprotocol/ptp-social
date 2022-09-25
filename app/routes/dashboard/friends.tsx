@@ -92,13 +92,13 @@ export default function Dashboard() {
     <div>
       <NavbarLogged address={data.address} />
 
-      {/* <h1 className="px-10 pt-5 font-bold text-first text-2xl text-center">
-        What's going on ?
-      </h1> */}
-
       {transition.state === "idle" && (
         <div>
           <Outlet />
+
+          <h1 className="font-bold text-first text-2xl text-center pb-3">
+            Your followers
+          </h1>
 
           {data.following.items.map((item: any) => (
             <Link to={`/${item.profile.handle}`} key={`${item.profile.id}`}>
@@ -107,6 +107,10 @@ export default function Dashboard() {
               </div>
             </Link>
           ))}
+
+          <h1 className="font-bold text-lens text-2xl text-center pb-3 pt-6">
+            Whats happening on Lens
+          </h1>
 
           <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 sm:w-2/3 content-center m-auto">
             {data.items.map((item: any) => (

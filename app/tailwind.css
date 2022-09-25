@@ -1061,6 +1061,14 @@ video {
   padding-bottom: 0.5rem;
 }
 
+.pb-5 {
+  padding-bottom: 1.25rem;
+}
+
+.pb-3 {
+  padding-bottom: 0.75rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -1164,6 +1172,11 @@ video {
 .text-third {
   --tw-text-opacity: 1;
   color: rgb(255 0 110 / var(--tw-text-opacity));
+}
+
+.text-lens {
+  --tw-text-opacity: 1;
+  color: rgb(171 254 44 / var(--tw-text-opacity));
 }
 
 .placeholder-gray-600::-moz-placeholder {
