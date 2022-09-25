@@ -39,19 +39,24 @@ export const loader: LoaderFunction = async ({ params }) => {
 
   const profile = response.profile;
 
-  console.log(profile);
+  console.log(`[BFF][notifications] notifications:`);
+  console.log(notifications);
+
+  return notifications;
 
   // filter notifications sent by profile
-  const filterNotifications = notifications.filter(
-    (notification: any) =>
-      notification.title.toLowerCase() == profile.ownedBy.toLowerCase()
-  );
+  // const filterNotifications = notifications.filter(
+  //   (notification: any) =>
+  //     notification.title.toLowerCase() == profile.ownedBy.toLowerCase()
+  // );
 
-  return filterNotifications;
+  // return filterNotifications;
 };
 
 export default function Messages() {
   const notifications = useLoaderData();
+
+  console.log(notifications);
 
   return (
     <div>
