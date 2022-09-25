@@ -1,4 +1,5 @@
-import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
+import type { ActionFunction, LoaderFunction } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { Form, Outlet, useLoaderData, useSubmit } from "@remix-run/react";
 
 import { useRef } from "react";
@@ -18,11 +19,12 @@ export const action: ActionFunction = async ({ request }) => {
 
   const message = form.get("message");
   const sender = form.get("sender");
+  const recipient = form.get("recipient");
 
   await sendNotification(
     sender as string,
     message as string,
-    "0x3aeC2276326CDC8E9a8A4351c338166e67105AC3"
+    recipient as string
   );
 
   return redirect(`/notifications/${sender}`);
@@ -69,11 +71,8 @@ export default function Notifications() {
 
     const formData = new FormData(formRef.current as HTMLFormElement);
 
-    console.log(formData);
-    // const formData = new FormData();
-
     formData.append("sender", data.user[0].address);
-    // formData.append("connected", "true");
+    formData.append("recipient", data.profile.ownedBy);
 
     submit(formData, {
       action: `/notifications/${data.profile.handle}`,

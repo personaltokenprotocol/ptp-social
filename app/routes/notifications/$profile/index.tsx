@@ -7,8 +7,8 @@ import { fetchNotifications } from "~/blockchain/enps";
 
 // import MessageIn from "~/components/Social/MessageIn";
 import MessageOut from "~/components/Social/MessageOut";
-
-import { deletePTP } from "~/utils/text";
+import { GraphQLClient } from "graphql-request";
+import { GetProfile } from "~/blockchain/lens-api";
 
 export const loader: LoaderFunction = async ({ params }) => {
   const user = await db.user.findMany({
@@ -27,11 +27,24 @@ export const loader: LoaderFunction = async ({ params }) => {
 
   const notifications = await fetchNotifications(user[0].address);
 
+  console.log(`[BFF][notifications] Loading profile ${params.profile} ...`);
+
+  const lens = new GraphQLClient("https://api.lens.dev/playground");
+
+  const variables = {
+    request: { handle: params.profile },
+  };
+
+  const response = await lens.request(GetProfile, variables);
+
+  const profile = response.profile;
+
+  console.log(profile);
+
   // filter notifications sent by profile
   const filterNotifications = notifications.filter(
     (notification: any) =>
-      notification.title.toLowerCase() ==
-      "0x3aeC2276326CDC8E9a8A4351c338166e67105AC3".toLowerCase()
+      notification.title.toLowerCase() == profile.ownedBy.toLowerCase()
   );
 
   return filterNotifications;
@@ -39,8 +52,6 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 export default function Messages() {
   const notifications = useLoaderData();
-
-  // console.log(notifications);
 
   return (
     <div>
