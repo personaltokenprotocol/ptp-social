@@ -1,4 +1,5 @@
-import { SubmitFunction } from "@remix-run/react";
+import type { SubmitFunction } from "@remix-run/react";
+
 import type WalletConnect from "@walletconnect/client";
 import type { IInternalEvent } from "@walletconnect/types";
 

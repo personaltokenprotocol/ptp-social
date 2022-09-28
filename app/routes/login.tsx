@@ -1,14 +1,17 @@
-import type { ActionFunction } from "@remix-run/node";
+import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { Outlet, useSubmit, useTransition } from "@remix-run/react";
 
-import Footer from "~/components/Footer";
-
 import { loginWithMetamask } from "~/blockchain/metamask";
 
+import { db } from "~/utils/db.server";
+
+import Footer from "~/components/Footer";
 import { MdVisibility, MdFavorite } from "react-icons/md";
 
-const COLOR = "#06D6A0";
+import { BiMessageAltDetail } from "react-icons/bi";
+
+const COLOR = "#FF006E";
 
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
@@ -18,6 +21,14 @@ export const action: ActionFunction = async ({ request }) => {
   if (!address || typeof address !== "string") return null;
 
   return redirect(`/dashboard`);
+};
+
+export const loader: LoaderFunction = async () => {
+  const users = await db.user.findMany();
+
+  console.log(users);
+
+  return null;
 };
 
 export default function Login() {
@@ -47,7 +58,11 @@ export default function Login() {
 
       {transition.state === "idle" && (
         <div className="pt-10 grid place-items-center">
-          <h1 className="text-2xl font-semibold">Connect wallet</h1>
+          <h1 className="text-2xl font-semibold p-10 text-center">
+            Send message to Lens profiles
+          </h1>
+
+          <BiMessageAltDetail color={COLOR} className="w-40 h-40 m-auto" />
 
           <div className="mt-10 rounded-xl shadow-ptp p-5 grid place-items-center w-5/6 sm:w-1/3">
             <button

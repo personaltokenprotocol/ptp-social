@@ -10,7 +10,7 @@ async function sendNotification(
   body: string,
   recipient: string
 ): Promise<boolean> {
-  console.log("[blockchain][enps][sendNotification]");
+  // console.log("[blockchain][enps][sendNotification]");
   try {
     const apiResponse = await EpnsAPI.payloads.sendNotification({
       signer,
@@ -33,10 +33,10 @@ async function sendNotification(
 
     // apiResponse?.status === 204, if sent successfully!
     if (apiResponse?.status === 204) {
-      console.log(
-        "[blockchain][enps][sendNotification] Success !. Notifications sent to: ",
-        recipient
-      );
+      // console.log(
+      //   "[blockchain][enps][sendNotification] Success !. Notifications sent to: ",
+      //   recipient
+      // );
       return true;
     } else {
       console.log("[blockchain][enps][sendNotification] failed");
@@ -49,7 +49,7 @@ async function sendNotification(
 }
 
 async function fetchNotifications(address: string): Promise<any> {
-  console.log("[blockchain][enps][fetchNotifications]");
+  // console.log("[blockchain][enps][fetchNotifications]");
   try {
     const notifications = await EpnsAPI.user.getFeeds({
       user: `eip155:42:${address}`, // user address in CAIP

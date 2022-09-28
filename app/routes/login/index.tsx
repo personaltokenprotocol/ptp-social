@@ -19,8 +19,8 @@ export const action: ActionFunction = async ({ request }) => {
 
   if (!address || typeof address !== "string") return null;
 
-  console.log(`[BFF][login] address: ${address}, connected: ${connected}`);
-
+  console.log("estamos aqui recien, en login");
+  console.log(address);
   let user;
 
   try {
@@ -29,6 +29,15 @@ export const action: ActionFunction = async ({ request }) => {
         address,
       },
     });
+
+    if (!user) {
+      await db.user.create({
+        data: {
+          address,
+          connected: connected === "true",
+        },
+      });
+    }
 
     await db.user.updateMany({
       where: {
@@ -50,16 +59,17 @@ export const action: ActionFunction = async ({ request }) => {
     });
   }
 
-  return redirect(`/dashboard`);
+  return redirect(`/dashboard/friends`);
 };
 
 export default function Navbar() {
   const submit = useSubmit();
 
   const handleLoginMetamask = async () => {
-    console.log(
-      "[browser][handleLoginMetamask] Waiting connection with metamask ..."
-    );
+    console
+      .log
+      // "[browser][handleLoginMetamask] Waiting connection with metamask ..."
+      ();
     const address = await loginWithMetamask();
 
     const formData = new FormData();
@@ -76,9 +86,9 @@ export default function Navbar() {
   };
 
   const handleLoginWalletConnect = async () => {
-    console.log(
-      "[browser][handleLoginWalletConnect] Waiting connection with walletConnect ..."
-    );
+    // console.log(
+    //   "[browser][handleLoginWalletConnect] Waiting connection with walletConnect ..."
+    // );
     // bridge url
     const bridge = "https://bridge.walletconnect.org";
 
@@ -94,11 +104,11 @@ export default function Navbar() {
       // create new session
       await connector.createSession();
     } else {
-      console.log("[browser][handleLoginWalletConnect] connector:", connector);
+      // console.log("[browser][handleLoginWalletConnect] connector:", connector);
 
       const address = connector.accounts[0];
 
-      console.log("[browser][handleLoginWalletConnect] address:", address);
+      // console.log("[browser][handleLoginWalletConnect] address:", address);
 
       const formData = new FormData();
 
@@ -113,7 +123,7 @@ export default function Navbar() {
       });
     }
 
-    console.log("[browser][handleLoginWalletConnect] subscribeToEvents ...");
+    // console.log("[browser][handleLoginWalletConnect] subscribeToEvents ...");
 
     // subscribe to events and submit form
     subscribeToEvents(connector, submit);

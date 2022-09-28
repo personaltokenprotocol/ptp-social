@@ -86,7 +86,7 @@ export default function Dashboard() {
 
   // console.log("[browser][Dashboard] transition ", transition);
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <div>

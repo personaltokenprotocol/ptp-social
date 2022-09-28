@@ -56,8 +56,8 @@ export const loader: LoaderFunction = async ({ params }) => {
 export default function Messages() {
   const { notifications, filterNotifications } = useLoaderData();
 
-  console.log(notifications);
-  console.log(filterNotifications);
+  // console.log(notifications);
+  // console.log(filterNotifications);
 
   return (
     <div>
